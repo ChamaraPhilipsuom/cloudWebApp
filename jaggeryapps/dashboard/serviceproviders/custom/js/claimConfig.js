@@ -28,9 +28,9 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
             } else {
                 row = row + ""
             }
-            row = row + '><input type="text" class="spClaimVal" style="width: 98%;" value="' + claimMapping[entry].remoteClaim.claimUri + '" id="spClaim_' + i + '" name="spClaim_' + i + '" readonly="readonly"/></td>' +
+            row = row + '><input type="text" class="spClaimVal form-control" style="width: 98%;" value="' + claimMapping[entry].remoteClaim.claimUri + '" id="spClaim_' + i + '" name="spClaim_' + i + '" readonly="readonly"/></td>' +
                 '<td>\n' +
-                '<select id="idpClaim_' + i + '" name="idpClaim_' + i + '" class="idpClaim" style="float:left; width: 100%">';
+                '<select id="idpClaim_' + i + '" name="idpClaim_' + i + '" class="idpClaim form-control" style="float:left; width: 100%">';
             for (var localClaimNameEntry in spConfigClaimUris) {
                 var localClaimName = spConfigClaimUris[localClaimNameEntry];
                 if (localClaimName == claimMapping[entry].localClaim.claimUri) {
@@ -131,7 +131,7 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
     jQuery('#claimMappingAddLink').click(function () {
         $('#claimMappingAddTable').show();
         var selectedIDPClaimName = $('select[name=idpClaimsList]').val();
-        if (!validaForDuplications('.idpClaim', selectedIDPClaimName, 'Local Claim')) {
+        if (!validateForDuplications('.idpClaim', selectedIDPClaimName, 'Local Claim')) {
             return false;
         }
         claimMappinRowID++;
@@ -139,7 +139,7 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
         if (idpClaimListDiv.length > 0) {
             $(idpClaimListDiv.find('select')).attr('id', 'idpClaim_' + claimMappinRowID);
             $(idpClaimListDiv.find('select')).attr('name', 'idpClaim_' + claimMappinRowID);
-            $(idpClaimListDiv.find('select')).addClass("idpClaim");
+            $(idpClaimListDiv.find('select')).addClass("idpClaim form-control");
         }
         if ($('input:radio[name=claim_dialect]:checked').val() == "local") {
             $('.spClaimHeaders').hide();
@@ -157,9 +157,9 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
             $('#spccol').show();
             $('#rccol').show();
             jQuery('#claimMappingAddTable').append(jQuery('<tr>' +
-                '<td><input type="text" class="spClaimVal" style="width: 98%;" id="spClaim_' + claimMappinRowID + '" name="spClaim_' + claimMappinRowID + '"/></td> ' +
+                '<td><input type="text" class="spClaimVal form-control" style="width: 98%;" id="spClaim_' + claimMappinRowID + '" name="spClaim_' + claimMappinRowID + '"/></td> ' +
                 '<td>' + idpClaimListDiv.html() + '</td>' +
-                '<td><input type="checkbox"  name="spClaim_req_' + claimMappinRowID + '"  id="spClaim_req_' + claimMappinRowID + '"/></td>' +
+                '<td><div class="checkbox"><label><input type="checkbox"  class="custom-checkbox custom-checkbox-white" name="spClaim_req_' + claimMappinRowID + '"  id="spClaim_req_' + claimMappinRowID + '"/></label></div></td>' +
                 '<td><a onclick="deleteClaimRow(this);return false;" href="#" class="icon-link" style="background-image: url(images/delete.gif)"> Delete</a></td>' +
                 '</tr>'));
             $('#spClaim_' + claimMappinRowID).change(function () {
@@ -306,7 +306,7 @@ function deleteClaimRow(obj) {
     }
 }
 
-function validaForDuplications(selector, authenticatorName, type) {
+function validateForDuplications(selector, authenticatorName, type) {
     if ($(selector).length > 0) {
         var isNew = true;
         $.each($(selector), function () {

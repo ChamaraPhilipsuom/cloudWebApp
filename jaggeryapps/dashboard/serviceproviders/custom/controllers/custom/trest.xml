@@ -1,84 +1,289 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<saml2p:Response Destination="https://localhost:9443/dashboard/acs" ID="_4c8590e9d9cdfe4fd84ff2668b495854"
-                 InResponseTo="lmgjmbeghgplnfkaioinnanilpmmifnccfepajlo" IssueInstant="2016-07-15T06:12:54.153Z"
-                 Version="2.0" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
-    <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
-                  xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">localhost
-    </saml2:Issuer>
-    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-        <ds:SignedInfo>
-            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-            <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-            <ds:Reference URI="#_4c8590e9d9cdfe4fd84ff2668b495854">
-                <ds:Transforms>
-                    <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                    <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-                </ds:Transforms>
-                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <ds:DigestValue>YqhFZtHakpxVV98JDMHtOH1OuWo=</ds:DigestValue>
-            </ds:Reference>
-        </ds:SignedInfo>
-        <ds:SignatureValue>
-            cuPyZ4JizjHDN5AO2T3oWu+/Fd4qwtf1ph6wUfSpAcuikp6fu8D6SvyefPbftonKMs9ces672TlX89ogbnqkoEWe5ZUdr4Aptv+MKZJXsz003zhJeZpZHB5l1wD3BDl1PFzEEujUzVKgUxJSfywP00Ipks/XYh/nLHP1JXXEwBw=
-        </ds:SignatureValue>
-        <ds:KeyInfo>
-            <ds:X509Data>
-                <ds:X509Certificate>
-                    MIICNTCCAZ6gAwIBAgIES343gjANBgkqhkiG9w0BAQUFADBVMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExFjAUBgNVBAcMDU1vdW50YWluIFZpZXcxDTALBgNVBAoMBFdTTzIxEjAQBgNVBAMMCWxvY2FsaG9zdDAeFw0xMDAyMTkwNzAyMjZaFw0zNTAyMTMwNzAyMjZaMFUxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzENMAsGA1UECgwEV1NPMjESMBAGA1UEAwwJbG9jYWxob3N0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUp/oV1vWc8/TkQSiAvTousMzOM4asB2iltr2QKozni5aVFu818MpOLZIr8LMnTzWllJvvaA5RAAdpbECb+48FjbBe0hseUdN5HpwvnH/DW8ZccGvk53I6Orq7hLCv1ZHtuOCokghz/ATrhyPq+QktMfXnRS4HrKGJTzxaCcU7OQIDAQABoxIwEDAOBgNVHQ8BAf8EBAMCBPAwDQYJKoZIhvcNAQEFBQADgYEAW5wPR7cr1LAdq+IrR44iQlRG5ITCZXY9hI0PygLP2rHANh+PYfTmxbuOnykNGyhM6FjFLbW2uZHQTY1jMrPprjOrmyK5sjJRO4d1DeGHT/YnIjs9JogRKv4XHECwLtIVdAbIdWHEtVZJyMSktcyysFcvuhPQK8Qc/E/Wq8uHSCo=
-                </ds:X509Certificate>
-            </ds:X509Data>
-        </ds:KeyInfo>
-    </ds:Signature>
-    <saml2p:Status>
-        <saml2p:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
-    </saml2p:Status>
-    <saml2:Assertion ID="_83c7d0f1abe3b8f69a5a3d3284cbf4c9" IssueInstant="2016-07-15T06:12:54.153Z" Version="2.0"
-                     xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">
-        <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">localhost</saml2:Issuer>
-        <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-            <ds:SignedInfo>
-                <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-                <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-                <ds:Reference URI="#_83c7d0f1abe3b8f69a5a3d3284cbf4c9">
-                    <ds:Transforms>
-                        <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                        <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-                    </ds:Transforms>
-                    <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                    <ds:DigestValue>EK+LIjlOVAQ29ktsLcqbhQ1wmI0=</ds:DigestValue>
-                </ds:Reference>
-            </ds:SignedInfo>
-            <ds:SignatureValue>
-                edNM/bhcUoXKIageTvPyR/81G7lPueQjg1RDfjAB1gnncQkbZjDtSQKKXB5aEQ83I8EC9Oy3Nxd6z70SLbj3EsspKemlZX+qoEgtDgpm+TV/5plxvz7e4FCQNV4dwpX4WJEGKc4ZWQnVBbTEXDM/WaE1gq0Cck7TFopI5DEjE1o=
-            </ds:SignatureValue>
-            <ds:KeyInfo>
-                <ds:X509Data>
-                    <ds:X509Certificate>
-                        MIICNTCCAZ6gAwIBAgIES343gjANBgkqhkiG9w0BAQUFADBVMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExFjAUBgNVBAcMDU1vdW50YWluIFZpZXcxDTALBgNVBAoMBFdTTzIxEjAQBgNVBAMMCWxvY2FsaG9zdDAeFw0xMDAyMTkwNzAyMjZaFw0zNTAyMTMwNzAyMjZaMFUxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzENMAsGA1UECgwEV1NPMjESMBAGA1UEAwwJbG9jYWxob3N0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUp/oV1vWc8/TkQSiAvTousMzOM4asB2iltr2QKozni5aVFu818MpOLZIr8LMnTzWllJvvaA5RAAdpbECb+48FjbBe0hseUdN5HpwvnH/DW8ZccGvk53I6Orq7hLCv1ZHtuOCokghz/ATrhyPq+QktMfXnRS4HrKGJTzxaCcU7OQIDAQABoxIwEDAOBgNVHQ8BAf8EBAMCBPAwDQYJKoZIhvcNAQEFBQADgYEAW5wPR7cr1LAdq+IrR44iQlRG5ITCZXY9hI0PygLP2rHANh+PYfTmxbuOnykNGyhM6FjFLbW2uZHQTY1jMrPprjOrmyK5sjJRO4d1DeGHT/YnIjs9JogRKv4XHECwLtIVdAbIdWHEtVZJyMSktcyysFcvuhPQK8Qc/E/Wq8uHSCo=
-                    </ds:X509Certificate>
-                </ds:X509Data>
-            </ds:KeyInfo>
-        </ds:Signature>
-        <saml2:Subject>
-            <saml2:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">admin@carbon.super
-            </saml2:NameID>
-            <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-                <saml2:SubjectConfirmationData InResponseTo="lmgjmbeghgplnfkaioinnanilpmmifnccfepajlo"
-                                               NotOnOrAfter="2016-07-15T06:17:54.153Z"
-                                               Recipient="https://localhost:9443/dashboard/acs"/>
-            </saml2:SubjectConfirmation>
-        </saml2:Subject>
-        <saml2:Conditions NotBefore="2016-07-15T06:12:54.153Z" NotOnOrAfter="2016-07-15T06:17:54.153Z">
-            <saml2:AudienceRestriction>
-                <saml2:Audience>wso2.my.dashboard</saml2:Audience>
-                <saml2:Audience>carbonServer</saml2:Audience>
-            </saml2:AudienceRestriction>
-        </saml2:Conditions>
-        <saml2:AuthnStatement AuthnInstant="2016-07-15T06:12:54.154Z"
-                              SessionIndex="8b54e3ed-b40e-4c5d-8da3-b6b396b0675e">
-            <saml2:AuthnContext>
-                <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml2:AuthnContextClassRef>
-            </saml2:AuthnContext>
-        </saml2:AuthnStatement>
-    </saml2:Assertion>
-</saml2p:Response>
+<xsd:updateApplication xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://org.apache.axis2/xsd"
+                       xmlns:xsd1="http://model.common.application.identity.carbon.wso2.org/xsd">
+    <xsd:serviceProvider>
+        <xsd1:applicationID>23</xsd1:applicationID>
+        <xsd1:applicationName>kenahi.com</xsd1:applicationName>
+        <xsd1:claimConfig>
+            <xsd1:alwaysSendMappedLocalSubjectId>false</xsd1:alwaysSendMappedLocalSubjectId>
+            <xsd1:localClaimDialect>true</xsd1:localClaimDialect>
+            <xsd1:roleClaimURI></xsd1:roleClaimURI>
+            <xsd1:userClaimURI></xsd1:userClaimURI>
+        </xsd1:claimConfig>
+        <xsd1:description>custom]</xsd1:description>
+        <xsd1:inboundAuthenticationConfig>
+            <xsd1:inboundAuthenticationRequestConfigs>
+                <xsd1:friendlyName>samlsso</xsd1:friendlyName>
+                <xsd1:inboundAuthKey>https://saml.salesforce.com</xsd1:inboundAuthKey>
+                <xsd1:inboundAuthType>samlsso</xsd1:inboundAuthType>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Signature Validation in Authentication Requests and Logout Requests
+                    </xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableSigValidation</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Response Signing Algorithm</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>signingAlgorithm</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>http://www.w3.org/2000/09/xmldsig#dsa-sha1</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Recipient URLs</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>receipientURLs</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable IdP Initiated SSO</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableIdPInitSSO</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description>The url where you should redirected after authenticated.</xsd1:description>
+                    <xsd1:displayName>Assertion Consumer URLs</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>assertionConsumerURLs</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Certificate Alias</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>alias</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable IdP Initiated SLO</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableIdPInitSLO</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Assertion Consumer Service Index</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>acsindex</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Audience URLs</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>audienceURLs</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Include Attributes in the Response Always</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableDefaultAttributeProfile</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>SLO Request URL</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>sloRequestURL</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Assertion Encryption</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableEncAssertion</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Audience Restriction</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableAudienceRestriction</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Single Logout</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableSingleLogout</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>NameID format</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>nameIdFormat</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>urn/oasis:names:tc:SAML:1.1:nameid-format:emailAddress</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>SLO Response URL</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>sloResponseURL</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Issuer</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>issuer</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>https://saml.salesforce.com</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Attribute Profile</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableAttributeProfile</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Default Assertion Consumer URL</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>defaultAssertionConsumerURL</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Recipient Validation</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableRecipients</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Enable Response Signing</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>enableResponseSignature</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>false</xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>IDP SLO Urls</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>idpSLOURLs</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value></xsd1:value>
+                </xsd1:properties>
+                <xsd1:properties>
+                    <xsd1:confidential>false</xsd1:confidential>
+                    <xsd1:defaultValue></xsd1:defaultValue>
+                    <xsd1:description></xsd1:description>
+                    <xsd1:displayName>Response Digest Algorithm</xsd1:displayName>
+                    <xsd1:displayOrder>0</xsd1:displayOrder>
+                    <xsd1:name>digestAlgorithm</xsd1:name>
+                    <xsd1:required>false</xsd1:required>
+                    <xsd1:type></xsd1:type>
+                    <xsd1:value>http://www.w3.org/2001/04/xmldsig-more#md5</xsd1:value>
+                </xsd1:properties>
+            </xsd1:inboundAuthenticationRequestConfigs>
+        </xsd1:inboundAuthenticationConfig>
+        <xsd1:inboundProvisioningConfig>
+            <xsd1:dumbMode>false</xsd1:dumbMode>
+            <xsd1:provisioningEnabled>false</xsd1:provisioningEnabled>
+            <xsd1:provisioningUserStore></xsd1:provisioningUserStore>
+        </xsd1:inboundProvisioningConfig>
+        <xsd1:outboundProvisioningConfig>
+            <xsd1:provisionByRoleList></xsd1:provisionByRoleList>
+        </xsd1:outboundProvisioningConfig>
+        <xsd1:permissionAndRoleConfig></xsd1:permissionAndRoleConfig>
+        <xsd1:spProperties>
+            <xsd1:displayName>WellKnown Application Type</xsd1:displayName>
+            <xsd1:name>appType</xsd1:name>
+            <xsd1:value>custom</xsd1:value>
+        </xsd1:spProperties>
+    </xsd:serviceProvider>
+</xsd:updateApplication>

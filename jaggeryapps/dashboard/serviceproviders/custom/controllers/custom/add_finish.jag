@@ -31,7 +31,6 @@ function addSP(){
         '</xsd1:spProperties>'+
         '</xsd:serviceProvider>'+
                 '</xsd:createApplication>';
-        log.error(createApp);
         spClient.createApplication(createApp);
     }catch(e){
         log.error(e);

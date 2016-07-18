@@ -111,64 +111,74 @@
                                                     </div>
 
                                                     <div  style="margin-bottom:10px;" id="claimsConfRow">
-                                                        <table  class="table-borderless tabel-label">
-                                                            <tr>
-                                                                <td style="width:15%">
-                                                                    <label id="addClaimUrisLbl"></label>
-                                                                </td>
-                                                                <td >
-                                                                    <a id="claimMappingAddLink" class="icon-link" style="background-image: url(images/add.gif); margin-top: 0px !important; margin-bottom: 5px !important; margin-left: 5px;">
-                                                                    Add Claim URI</a>
-                                                                    <table class="table-borderless tabel-label" id="claimMappingAddTable" style="">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th style="" id="spccol">Service Provider Claim</th>
-                                                                                <th >Local Claim</th>
-                                                                                <th style="" id="rccol">Requested Claim</th>
-                                                                                <th>Action</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody id="claimMappingAddBody">
-                                                                            <!--implement this-->
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Subject Claim URI:
-                                                                <td>
-                                                                    <select  id="subject_claim_uri" name="subject_claim_uri" style=" margin-left: 5px; ">
-                                                                        <!--render subject claim uris onload-->
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                        <!--<table  class="table-borderless tabel-label">-->
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <label id="addClaimUrisLbl">Requested Claims:</label>
+                                                                <div class="clearfix"></div>
+                                                                <a id="claimMappingAddLink" class="icon-link"
+                                                                   style="background-image: url(images/add.gif); margin-top: 0px !important; margin-bottom: 5px !important;">
+                                                                    Add Claim URI
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <table class="table tabel-label" id="claimMappingAddTable" style="display: table;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="display: none;" id="spccol">Service Provider Claim</th>
+                                                                            <th>Local Claim</th>
+                                                                            <th style="display: none;" id="rccol">Requested Claim</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="claimMappingAddBody">
+                                                                        <!--implement this-->
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <label id="subjectClaimURILbl">Subject Claim URI :</label>
+                                                                <select id="subject_claim_uri" name="subject_claim_uri" class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                         <input type="hidden" name="number_of_claimmappings" id="number_of_claimmappings" value="1">
                                                         <div id="localClaimsList" style="display: none;">
                                                             <!--render local claims onload-->
                                                         </div>
                                                         <input type="hidden" id ="local_calim_uris" value="" >
-                                                        <div id="roleMappingSelection" style="">
-                                                            <table class="table-borderless tabel-label" style="padding-top: 10px">
-                                                                <tr>
-                                                                    <td style="width:15%">
-                                                                        <label id="addClaimUrisLbl">Role Claim URI:</label>
-                                                                    </td>
-                                                                    <td >
-                                                                        <select id="roleClaim" name="roleClaim" style="float:left;min-width: 250px;">
-                                                                            <!--render role claimsa onload-->
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td  style="width:15%"></td>
-                                                                    <td>
-                                                                        <div class="sectionHelp">
-                                                                            Select Claim URI for Service Provider Role
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                        <div id="roleMappingSelection">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <label id="addClaimUrisLbl">Role Claim URI:</label>
+                                                                    <select id="roleClaim" name="roleClaim" class="form-control">
+                                                                    </select>
+                                                                    <p style="color:black; font-weight:300;">Select Claim URI for Service Provider Role</p>
+                                                                </div>
+                                                            </div>
+                                                            <!--<table class="table-borderless tabel-label" style="padding-top: 10px">-->
+                                                                <!--<tr>-->
+                                                                    <!--<td style="width:15%">-->
+                                                                        <!--<label id="addClaimUrisLbl">Role Claim URI:</label>-->
+                                                                    <!--</td>-->
+                                                                    <!--<td >-->
+                                                                        <!--<select id="roleClaim" name="roleClaim" class="form-control" style="float:left;min-width: 250px;">-->
+                                                                            <!--&lt;!&ndash;render role claimsa onload&ndash;&gt;-->
+                                                                        <!--</select>-->
+                                                                    <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                    <!--<td  style="width:15%"></td>-->
+                                                                    <!--<td>-->
+                                                                        <!--<div class="sectionHelp">-->
+                                                                            <!--Select Claim URI for Service Provider Role-->
+                                                                        <!--</div>-->
+                                                                    <!--</td>-->
+                                                                <!--</tr>-->
+                                                            <!--</table>-->
                                                         </div>
                                                     </div>
                                                 </form>
@@ -177,9 +187,6 @@
                                     </div>
                                     <!--EOF Claim Config-->
                                 </div>
-
-
-
                                 <div class="form-group">
                                     <label for="service-provider-description" >Inbound Authentication Configuration: </label>
                                     <div class="panel-group property-accordion accordion" id="property-accordion">
@@ -196,38 +203,6 @@
                                             </div>
                                             <div id="samlconfig" class="panel-collapse collapse" role="tabpanel" aria-labelledby="samlconfig-header" >
                                                 <div class="panel-body inverse">
-                                                    <form id="samlAttrIndexForm" class="form-horizontal" role="form" hidden>
-
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <label for="issuersaml">Issuer Name: <span class="required">*</span></label>
-                                                                <input type="text" class="form-control" id="issuersaml" placeholder="Issuer" disabled="disabled">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group ">
-                                                            <div class="col-md-12">
-                                                                <label for="acsindex">Attribute Consuming Service Index</label>
-                                                                <input type="text" class="form-control" id="acsindex" disabled="disabled">
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button class="cu-btn cu-btn-sm cu-btn-blue cu-btn-position" style = "margin-left: 2%;" onclick="showSamlForm();return false;">
-                                                            <span class="fw-stack btn-action-ico">
-                                                                <i class="fw fw-ring fw-stack-2x"></i>
-                                                                <i class="fw fw-edit fw-stack-1x"></i>
-                                                            </span>
-                                                            Edit
-                                                            </button>
-                                                            <button class="cu-btn cu-btn-sm cu-btn-blue cu-btn-position" style = "margin-left: 2%;" onclick="deleteSAMLIssuer();return false;">
-                                                            <span class="fw-stack btn-action-ico">
-                                                            <i class="fw fw-ring fw-stack-2x"></i>
-                                                            <i class="fw fw-delete fw-stack-1x"></i>
-                                                            </span>
-                                                            Delete
-                                                            </button>
-                                                        </div>
-                                                    </form>
                                                     <form id="addServiceProvider" class="form-horizontal" role="form" style="color: black;" hidden>
                                                         <h4>New Service Provider</h4>
                                                         <input type="hidden" id="hiddenFields" name="hiddenFields" value="">
@@ -258,16 +233,6 @@
                                                                 <div class="col-md-12">
                                                                     <!--fill the tabel with acrURLS accordingly-->
                                                                     <div id="assertionConsumerURLTblRow">
-                                                                        <!--<table id="assertionConsumerURLsTable" class="styledInner" style="width: 40%; margin-bottom: 3px;">-->
-                                                                        <!--<tbody id="assertionConsumerURLsTableBody">-->
-                                                                        <!--<tr id="acsUrl_0">-->
-                                                                        <!--<td style="padding-left: 15px !important; color: rgb(119, 119, 119);font-style: italic;"> https://github.com </td>-->
-                                                                        <!--<td>-->
-                                                                        <!--<a class="icon-link" style="background-image: url(../admin/images/delete.gif)" href="#" onclick="removeAssertionConsumerURL('https://github.com', 'acsUrl_0');return false;"> Delete </a>-->
-                                                                        <!--</td>-->
-                                                                        <!--</tr>-->
-                                                                        <!--</tbody>-->
-                                                                        <!--</table>-->
                                                                     </div>
                                                                     <input type="hidden" id="assertionConsumerURLs" name="assertionConsumerURLs" value="">
                                                                     <input type="hidden" id="currentColumnId" value="0">
@@ -329,7 +294,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <input type="hidden" value="true" name="enableAssertionSignature">
                                                         <!--  Enable Signature Validation -->
                                                         <div class="form-group"  id="enableSigValidationRow">
                                                             <div class="col-md-12">
@@ -381,7 +345,6 @@
                                                                     <div class="checkbox">
                                                                         <label><input class="custom-checkbox custom-checkbox-white" id="enableAttributeProfile" type="checkbox" onclick="disableAttributeProfile(this);" name="enableAttributeProfile" value="false"><span>Enable Attribute Profile</span></label>
                                                                     </div>
-                                                                    <input type="hidden" id="attributeIndex" name="attributeIndex" value="">
                                                                 </div>
                                                             </div>
                                                             <!--Include Attributes in the response always-->
@@ -391,6 +354,12 @@
                                                                     <div class="checkbox">
                                                                         <label><input id="enableDefaultAttributeProfile" class="custom-checkbox custom-checkbox-white" type="checkbox" onclick="disableDefaultAttributeProfile(this);" name="enableDefaultAttributeProfile" disabled="disabled"><span>Include Attributes in the Response Always</span></label>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group ">
+                                                                <div class="col-md-12">
+                                                                    <label for="acsindex">Attribute Consuming Service Index</label>
+                                                                    <input type="text" class="form-control" id="acsindex" disabled="disabled">
                                                                 </div>
                                                             </div>
                                                         </div>

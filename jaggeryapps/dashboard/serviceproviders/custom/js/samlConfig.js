@@ -20,9 +20,7 @@ function preDrawSAMLConfigPage(samlsp) {
                 isEditSP = true;
             }
             //have to set
-            $('#issuersaml').val(issuer);
             $('#isEditSp').val(isEditSP);
-            //$('#acsindex').val(provider.attributeConsumingServiceIndex);
             spConfigClaimUris = samlClient.claimURIs;
             spConfigCertificateAlias = samlClient.certAliases;
             spConfigSigningAlgos = samlClient.signingAlgos;
@@ -43,7 +41,6 @@ function preDrawSAMLConfigPage(samlsp) {
 }
 
 function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
-    debugger;
     var providerProps = {};
     var hiddenFields = [];
     for (var i in samlsp.properties) {
@@ -62,7 +59,7 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
 
     if (isEditSP && providerProps["assertionConsumerURLs"] != null && providerProps["assertionConsumerURLs"].value.length > 0) {
         var assertionConsumerURLTblRow =
-            "<table id=\"assertionConsumerURLsTable\" style=\"margin-bottom: 3px;\" class=\"styledInner table table-bordered col-sm-offset-1\">" +
+            "<table id=\"assertionConsumerURLsTable\" style=\"margin-bottom: 3px;\" class=\"styledInner table table-bordered\">" +
             "<tbody id=\"assertionConsumerURLsTableBody\">";
 
         var acsColumnId = 0;
@@ -91,7 +88,7 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
             acsColumnId++;
 
             var option = "";
-            if (assertionConsumerURL == providerProps["defaultAssertionConsumerUrl"].value) {
+            if (assertionConsumerURL == providerProps["defaultAssertionConsumerURL"].value) {
                 option = "<option value=\"" + assertionConsumerURL + "\" selected>" + assertionConsumerURL + "</option>";
             } else {
                 option = "<option value=\"" + assertionConsumerURL + "\">" + assertionConsumerURL + "</option>";
@@ -198,30 +195,40 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
     //start from here
     if (isEditSP && providerProps["enableResponseSignature"] != null && providerProps["enableResponseSignature"].value == 'true') {
         $('#enableResponseSignature').prop('checked', true);
+        $('#enableResponseSignature').val(true);
     } else {
         $('#enableResponseSignature').prop('checked', false);
+        $('#enableResponseSignature').val(false);
     }
 
     if (isEditSP && providerProps["enableSigValidation"] != null && providerProps["enableSigValidation"].value == 'true') {
         $('#enableSigValidation').prop('checked', true);
+        $('#enableSigValidation').val(true);
     } else {
         $('#enableSigValidation').prop('checked', false);
+        $('#enableSigValidation').val(false);
     }
-
     if (isEditSP && providerProps["enableEncAssertion"]!= null && providerProps["enableEncAssertion"].value == 'true') {
         $('#enableEncAssertion').prop('checked', true);
+        $('#enableEncAssertion').val(true);
     } else {
         $('#enableEncAssertion').prop('checked', false);
+        $('#enableEncAssertion').val(false);
     }
-
     if (isEditSP && providerProps["enableSingleLogout"] != null && providerProps["enableSingleLogout"].value == 'true') {
         $('#enableSingleLogout').prop('checked', true);
+        $('#enableSingleLogout').val(true);
         $('#sloResponseURL').prop('disabled', false);
         $('#sloRequestURL').prop('disabled', false);
-        $('#sloResponseURL').val(provider.sloResponseURL);
-        $('#sloRequestURL').val(provider.sloRequestURL);
+        if (providerProps["sloResponseURL"] != null && providerProps["sloResponseURL"].value.length > 0) {
+            $('#sloResponseURL').val(providerProps["sloResponseURL"].value);
+        }
+        if(providerProps["sloRequestURL"] != null && providerProps["sloRequestURL"].value.length > 0) {
+            $('#sloRequestURL').val(providerProps["sloRequestURL"].value);
+        }
     } else {
         $('#enableSingleLogout').prop('checked', false);
+        $('#enableSingleLogout').val(false);
         $('#sloResponseURL').prop('disabled', true);
         $('#sloRequestURL').prop('disabled', true);
         $('#sloResponseURL').val("");
@@ -253,32 +260,31 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
         show = true;
     }
     if (isEditSP && show) {
-
         if (providerProps["enableAttributeProfile"] != null && providerProps["enableAttributeProfile"].value == 'true') {
             $('#acsindex').val(providerProps["acsindex"].value);
-            $('#attributeIndex').val(providerProps["acsindex"].value);
             $('#enableAttributeProfile').prop("checked", true);
+            $('#enableAttributeProfile').val(true);
             $('#enableDefaultAttributeProfile').prop("disabled", false);
-            $('#enableAttributeProfile').val("true");
             if (providerProps["enableDefaultAttributeProfile"].value == 'true') {
                 $('#enableDefaultAttributeProfile').prop("checked", true);
-                $('#enableDefaultAttributeProfile').val("true");
-                $('#enableDefaultAttributeProfileHidden').val("true");
+                $('#enableDefaultAttributeProfile').val(true);
+                $('#enableDefaultAttributeProfileHidden').val(true);
             }
             else {
                 $('#enableDefaultAttributeProfile').prop("checked", false);
-                $('#enableDefaultAttributeProfile').val("false");
-                $('#enableDefaultAttributeProfileHidden').val("false");
+                $('#enableDefaultAttributeProfile').val(false);
+                $('#enableDefaultAttributeProfileHidden').val(false);
             }
         } else {
             $('#enableAttributeProfile').prop("checked", false);
-            $('#enableAttributeProfile').val("false");
+            $('#enableAttributeProfile').val(false);
             $('#enableDefaultAttributeProfile').prop("checked", false);
+            $('#enableDefaultAttributeProfile').val(false);
             $('#enableDefaultAttributeProfile').prop("disabled", true);
         }
     } else {
-        $('#enableAttributeProfile').val("false");
-        $('#enableDefaultAttributeProfile').val("false");
+        $('#enableAttributeProfile').val(false);
+        $('#enableDefaultAttributeProfile').val(false);
         $('#enableAttributeProfile').prop("checked", false);
         $('#enableDefaultAttributeProfile').prop("checked", false);
         $('#enableDefaultAttributeProfile').prop("disabled", true);
@@ -287,9 +293,13 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
     var enableAudienceRestrictionRow = "";
     if (isEditSP && providerProps["enableAudienceRestriction"] != null && providerProps["enableAudienceRestriction"].value == 'true') {
         $('#enableAudienceRestriction').prop("checked",true);
+        $('#enableAudienceRestriction').val(true);
+        $("#addAudience").prop('disabled', false);
         $('#audience').prop('disabled', false);
     } else {
         $('#enableAudienceRestriction').prop("checked",false);
+        $('#enableAudienceRestriction').val(false);
+        $("#addAudience").prop('disabled', true);
         $('#audience').prop('disabled', true);
     }
     var audienceTableStyle = "";
@@ -343,10 +353,14 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
 
     if (isEditSP && providerProps["enableRecipients"] != null && providerProps["enableRecipients"].value == 'true') {
         $('#enableRecipients').prop("checked",true);
+        $('#enableRecipients').val(true);
         $('#recipient').prop('disabled', false);
+        $("#addRecipient").prop('disabled', false);
     } else {
         $('#enableRecipients').prop("checked",false);
+        $('#enableRecipients').val(false);
         $('#recipient').prop('disabled', true);
+        $("#addRecipient").prop('disabled', true);
     }
 
     var recipientTableStyle = "";
@@ -399,24 +413,27 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
 
     if (isEditSP && providerProps["enableIdPInitSSO"] != null && providerProps["enableIdPInitSSO"].value =='true') {
         $('#enableIdPInitSSO').prop("checked",true);
+        $('#enableIdPInitSSO').val(true);
     } else {
         $('#enableIdPInitSSO').prop("checked",false);
+        $('#enableIdPInitSSO').val(false);
     }
 
     if (isEditSP && providerProps["enableIdPInitSLO"] != null && providerProps["enableIdPInitSLO"].value == 'true') {
         $('#enableIdPInitSLO').prop("checked",true);
+        $('#enableIdPInitSLO').val(true);
         $('#returnToURLTxtBox').prop("disabled",false);
         $('#addReturnToURL').prop("disabled",false);
     } else {
         $('#enableIdPInitSLO').prop("checked",false);
+        $('#enableIdPInitSLO').val(false);
         $('#returnToURLTxtBox').prop("disabled",true);
         $('#addReturnToURL').prop("disabled",true);
     }
-
     var idpSLOReturnToURLInputRow = '<table id="idpSLOReturnToURLsTbl" style="margin-bottom: 3px;" class="styledInner table table-bordered col-sm-offset-1">\n' +
         '            <tbody id="idpSLOReturnToURLsTblBody">\n';
     var returnToColumnId = 0;
-    if (isEditSP && providerProps["idpSLOURLs"] != null && providerProps["idpSLOURLs"].value > 0) {
+    if (isEditSP && providerProps["idpSLOURLs"] != null && providerProps["idpSLOURLs"].value.length > 0) {
         var idpInitSLOReturnToURLs = [];
         if (providerProps["idpSLOURLs"].value.indexOf(',') > -1) {
             idpInitSLOReturnToURLs = providerProps["idpSLOURLs"].value.split(',');
@@ -454,7 +471,7 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
         $('#attributeConsumingServiceIndex').val(providerProps["acsindex"].value);
         $('#acsindex').val(providerProps["acsindex"].value);
     }
-    $('#samlAttrIndexForm').show();
+    $('#addServiceProvider').show();
 }
 
 function drawSalesForce(salesforceConfig){
@@ -681,74 +698,70 @@ function disableDefaultAttributeProfile(chkbx) {
 }
 
 function disableResponseSignature(chkbx) {
-    if (chkbx.checked) {
-        $('#enableResponseSignature').val(true);
-    } else {
-        $('#enableResponseSignature').val(false);
-    }
+    $('#enableResponseSignature').val(chkbx.checked);
 }
 
 function disableSignatureValidation(chkbx) {
-    if (chkbx.checked) {
-        $('#enableSigValidation').val(true);
-    } else {
-        $('#enableSigValidation').val(false);
-    }
+    $('#enableSigValidation').val(chkbx.checked);
 }
 
 function disableEncAssertion(chkbx) {
-    if (chkbx.checked) {
-        $('#enableEncAssertion').val(true);
-    } else {
-        $('#enableEncAssertion').val(false);
-    }
+    $('#enableEncAssertion').val(chkbx.checked);
 }
 
 
 function disableLogoutUrl(chkbx) {
-    if ($(chkbx).is(':checked')) {
+    if (chkbx.checked) {
         $("#sloResponseURL").prop('disabled', false);
         $("#sloRequestURL").prop('disabled', false);
+        $("#enableSingleLogout").val(true);
     } else {
         $("#sloResponseURL").prop('disabled', true);
         $("#sloRequestURL").prop('disabled', true);
         $("#sloResponseURL").val("");
         $("#sloRequestURL").val("");
+        $("#enableSingleLogout").val(false);
     }
 }
 
 function disableAudienceRestriction(chkbx) {
-    if ($(chkbx).is(':checked')) {
+    if (chkbx.checked) {
         $("#audience").prop('disabled', false);
         $("#addAudience").prop('disabled', false);
+        $("#enableAudienceRestriction").val(true);
     } else {
         $("#audience").prop('disabled', true);
         $("#addAudience").prop('disabled', true);
+        $("#enableAudienceRestriction").val(false);
     }
 }
 
 function disableRecipients(chkbx) {
-    if ($(chkbx).is(':checked')) {
+    if (chkbx.checked) {
         $("#recipient").prop('disabled', false);
         $("#addRecipient").prop('disabled', false);
+        $("#enableRecipients").val(true);
     } else {
         $("#recipient").prop('disabled', true);
         $("#addRecipient").prop('disabled', true);
+        $("#enableRecipients").val(false);
     }
 }
 
 function disableIdPInitSSO(chkbx) {
-    $('#disableIdPInitSSO').val(chkbx.checked);
+    $('#enableIdPInitSSO').val(chkbx.checked);
 }
 
 
 function disableIdPInitSLO(chkbx) {
-    if ($(chkbx).is(':checked')) {
+    if (chkbx.checked) {
         $("#returnToURLTxtBox").prop('disabled', false);
         $("#addReturnToURL").prop('disabled', false);
+        $("#enableIdPInitSLO").val(true);
     } else {
         $("#returnToURLTxtBox").prop('disabled', true);
         $("#addReturnToURL").prop('disabled', true);
+        $("#enableIdPInitSLO").val(false);
     }
 }
 
@@ -1050,7 +1063,6 @@ function removeSloReturnToURL(returnToURL, columnId) {
 }
 
 function addSloReturnToURL() {
-
     var returnToURL = $("#returnToURLTxtBox").val();
     if (returnToURL == null || returnToURL.trim().length == 0) {
         // CARBON.showWarningDialog("<fmt:message key='slo.enter.not.valid.endpoint.address'/>", null, null);
@@ -1074,7 +1086,6 @@ function addSloReturnToURL() {
         $('#idpSLOReturnToURLInputRow').append(row);
         $('#currentReturnToColumnId').val("0");
     }
-
     var idpInitSLOReturnToURLs = $("#idpSLOURLs").val();
     var currentColumnId = $("#currentReturnToColumnId").val();
     if (idpInitSLOReturnToURLs == null || idpInitSLOReturnToURLs.trim().length == 0) {

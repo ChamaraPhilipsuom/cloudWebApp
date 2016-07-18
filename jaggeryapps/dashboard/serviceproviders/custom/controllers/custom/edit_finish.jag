@@ -20,8 +20,6 @@ function updateSP(){
         var spName = request.getParameter('spName');
         var oldSPName = request.getParameter('oldSPName');
         var spDesc = request.getParameter('spDesc');
-        var samlIssuer = request.getParameter('issuersaml');
-        var samlAtrIndex = request.getParameter('acsindex');
         var oauthConsumerID = request.getParameter('consumerID');
         var oauthSecret = request.getParameter('consumerSecret');
         var stsRealm = request.getParameter('passiveSTSRealm');
@@ -62,9 +60,7 @@ function updateSP(){
             claimMappings.push(claim);
         }
 
-        var spName = applicationName;
         var status = false;
-        var attributeConsumingServiceIndex = null;
         var serviceProviderDTO = {};
 
         var isEditingSP = false;
@@ -72,31 +68,30 @@ function updateSP(){
             isEditingSP = true;
         }
 
-        serviceProviderDTO["issuer"] = request.getParameter("hiddenIssuer");
+        serviceProviderDTO["issuer"] = request.getParameter("issuer");
         serviceProviderDTO["assertionConsumerURLs"] = request.getParameter("assertionConsumerURLs").split(",");
+        serviceProviderDTO["acsindex"] = "";
         serviceProviderDTO["defaultAssertionConsumerURL"] = request.getParameter("defaultAssertionConsumerURL");
+        serviceProviderDTO["nameIdFormat"] = request.getParameter("nameIdFormat");
+        serviceProviderDTO["alias"] = "";
         serviceProviderDTO["signingAlgorithm"] = request.getParameter("signingAlgorithm");
         serviceProviderDTO["digestAlgorithm"] = request.getParameter("digestAlgorithm");
+        serviceProviderDTO["enableResponseSignature"] = false;
+        serviceProviderDTO["enableSigValidation"] = false;
+        serviceProviderDTO["enableEncAssertion"] = false;
         serviceProviderDTO["enableSingleLogout"] = false;
         serviceProviderDTO["sloResponseURL"] = "";
         serviceProviderDTO["sloRequestURL"] = "";
-        serviceProviderDTO["enableResponseSignature"] = false;
         serviceProviderDTO["enableAssertionSignature"] = false;
         serviceProviderDTO["enableAttributeProfile"] = false;
-        serviceProviderDTO["enableDefaultAttributeProfileHidden"] = false;
-        serviceProviderDTO["nameIdClaim"] = "";
-        serviceProviderDTO["loginPageURL"] = "";
-        serviceProviderDTO["requestedClaims"] = [];
-        serviceProviderDTO["requestedAudiences"] = [];
-        serviceProviderDTO["requestedRecipients"] = [];
-        serviceProviderDTO["attributeConsumingServiceIndex"] = "";
+        serviceProviderDTO["enableDefaultAttributeProfile"] = false;
+        serviceProviderDTO["enableAudienceRestriction"] = false;
+        serviceProviderDTO["audienceURLs"] = "";
+        serviceProviderDTO["enableRecipients"] = false;
+        serviceProviderDTO["receipientURLs"] = "";
         serviceProviderDTO["enableIdPInitSSO"] = false;
         serviceProviderDTO["enableIdPInitSLO"] = false;
         serviceProviderDTO["idpSLOURLs"] = [];
-        serviceProviderDTO["enableEncAssertion"] = false;
-        serviceProviderDTO["enableSigValidation"] = false;
-        serviceProviderDTO["alias"] = "";
-
 
         if (request.getParameter("enableSingleLogout") == 'true') {
             serviceProviderDTO["enableSingleLogout"] = true;
@@ -117,8 +112,6 @@ function updateSP(){
             serviceProviderDTO["enableAssertionSignature"] = true;
         }
 
-        serviceProviderDTO["nameIdFormat"] = request.getParameter("nameIdFormat");
-
         if (serviceProviderDTO["nameIdFormat"] != null && serviceProviderDTO["nameIdFormat"].length > 0) {
             serviceProviderDTO["nameIdFormat"] = serviceProviderDTO["nameIdFormat"].replace(":", "/");
         }
@@ -127,85 +120,34 @@ function updateSP(){
             //TODO : Do the following
             //serviceProviderDTO.setRequestedClaims(samlSsoServuceProviderConfigBean.getSelectedClaimsAttay());
             serviceProviderDTO["enableAttributeProfile"] = true;
+            if (request.getParameter("attributeConsumingServiceIndex") != null && request.getParameter("attributeConsumingServiceIndex").length > 0) {
+                serviceProviderDTO["acsindex"] = request.getParameter("attributeConsumingServiceIndex");
+            }
 
-            if (request.getParameter("enableDefaultAttributeProfileHidden") == 'true') {
-                serviceProviderDTO["enableDefaultAttributeProfileHidden"] = true;
+            if (request.getParameter("enableDefaultAttributeProfile") == 'true') {
+                serviceProviderDTO["enableDefaultAttributeProfile"] = true;
             }
         }
 
-        if (request.getParameter("enableNameIdClaimUriHidden") == 'true') {
-            serviceProviderDTO["nameIdClaim"] = request.getParameter("nameIdClaim");
-        }
-
-        //TODO Check Whether these are needed
-        /*
-         if (Boolean.parseBoolean(request.getParameter(SAMLSSOUIConstants.ENABLE_AUDIENCE_RESTRICTION))) {
-         serviceProviderDTO.setRequestedAudiences(samlSsoServuceProviderConfigBean.getSelectedAudiencesArray());
-         }
-
-         if (Boolean.parseBoolean(request.getParameter(SAMLSSOUIConstants.ENABLE_RECIPIENTS))) {
-         serviceProviderDTO.setRequestedRecipients(samlSsoServuceProviderConfigBean.getSelectedRecipientsArray());
-         }*/
-
-        if (request.getParameter("loginPageURL") != null && "null" != request.getParameter("loginPageURL")) {
-            serviceProviderDTO["loginPageURL"] = request.getParameter("loginPageURL");
-        }
-
         if (request.getParameter("enableAudienceRestriction") == 'true') {
+            serviceProviderDTO["enableAudienceRestriction"] = true;
             var audienceUrls = request.getParameter("audienceURLs");
             if (audienceUrls != null && audienceUrls.length > 0) {
-                audienceUrls = audienceUrls.split(",");
-                for (var i in audienceUrls) {
-                    var audience = audienceUrls[i];
-                    if (audience != null && audience.length > 0) {
-                        var currentAudiences = serviceProviderDTO["requestedAudiences"];
-                        var isAudienceAlreadyAdded = false;
-                        for (var cntr in currentAudiences) {
-                            var currentAudience = currentAudiences[cntr];
-                            if (audience == currentAudience) {
-                                isAudienceAlreadyAdded = true;
-                                break;
-                            }
-                        }
-                        if (!isAudienceAlreadyAdded) {
-                            serviceProviderDTO["requestedAudiences"].push(audience);
-                        }
-                    }
-                }
+                serviceProviderDTO["audienceURLs"] = audienceUrls;
             }
         }
 
         if (request.getParameter("enableRecipients") == 'true') {
+            serviceProviderDTO["enableRecipients"] = true;
             var receipientURLs = request.getParameter("receipientURLs");
             if (receipientURLs != null && receipientURLs.length > 0) {
-                receipientURLs = receipientURLs.split(",");
-                for (var i in receipientURLs) {
-                    var recipient = receipientURLs[i];
-                    if (recipient != null && recipient.length > 0) {
-                        var currentRecipients = serviceProviderDTO["requestedRecipients"];
-                        var isRecipientAlreadyAdded = false;
-                        for (var cntr in currentRecipients) {
-                            var currentRecipient = currentRecipients[cntr];
-                            if (recipient == currentRecipient) {
-                                isRecipientAlreadyAdded = true;
-                                break;
-                            }
-                        }
-                        if (!isRecipientAlreadyAdded) {
-                            serviceProviderDTO["requestedRecipients"].push(recipient);
-                        }
-                    }
-                }
+                serviceProviderDTO["receipientURLs"] = receipientURLs;
             }
-        }
-
-        if (isEditingSP && request.getParameter("attributeConsumingServiceIndex") != null && request.getParameter("attributeConsumingServiceIndex").length > 0) {
-            serviceProviderDTO["attributeConsumingServiceIndex"] = request.getParameter("attributeConsumingServiceIndex");
         }
 
         //For editing purposes
         if( serviceProviderDTO["enableAttributeProfile"] == false){
-            serviceProviderDTO["attributeConsumingServiceIndex"] = "";
+            serviceProviderDTO["acsindex"] = "";
         }
 
         if (request.getParameter("enableIdPInitSSO") == 'true') {
@@ -216,7 +158,7 @@ function updateSP(){
             serviceProviderDTO["enableIdPInitSLO"] = true;
             var returnToUrls = request.getParameter("idpSLOURLs");
             if (returnToUrls != null && returnToUrls.length > 0) {
-                serviceProviderDTO["idpSLOURLs"] = returnToUrls.split(",");
+                serviceProviderDTO["idpSLOURLs"] = returnToUrls;
             }
         }
 
@@ -263,105 +205,46 @@ function updateSP(){
         '<xsd1:description>'+spDesc+'</xsd1:description>'+
         '<xsd1:inboundAuthenticationConfig>';
 
-        if (sptype == 'custom' && samlIssuer != null && samlIssuer.length > 0) {
-            updateSp = updateSp + '<xsd1:inboundAuthenticationRequestConfigs>' +
-                    '<xsd1:friendlyName>?</xsd1:friendlyName>' +
-                    '<xsd1:inboundAuthKey>' + samlIssuer + '</xsd1:inboundAuthKey>' +
-                    '<xsd1:inboundAuthType>samlsso</xsd1:inboundAuthType>' +
-                    '<xsd1:properties>' +
-                    '<xsd1:confidential>false</xsd1:confidential>' +
-                    '<xsd1:defaultValue></xsd1:defaultValue>' +
-                    '<xsd1:description></xsd1:description>' +
-                    '<xsd1:displayName></xsd1:displayName>' +
-                    '<xsd1:displayOrder>0</xsd1:displayOrder>' +
-                    '<xsd1:name>attrConsumServiceIndex</xsd1:name>' +
-                    '<xsd1:required>false</xsd1:required>' +
-                    '<xsd1:type></xsd1:type>' +
-                    '<xsd1:value>' + samlAtrIndex + '</xsd1:value>' +
-                    '</xsd1:properties>' +
-                    '</xsd1:inboundAuthenticationRequestConfigs>';
-        } else if (sptype == 'salesforce') {
-            var acsUrls = request.getParameter("assertionConsumerURLs");
-            var defaultacs = request.getParameter("defaultAssertionConsumerURL");
-            var aliascert = request.getParameter("alias");
-            var signAlgo = request.getParameter("signingAlgorithm");
-            var digAlgo = request.getParameter("digestAlgorithm");
-            samlIssuer = request.getParameter("hiddenIssuer");
-            var enableRespSign = false;
-            var enableSigValid = false;
-            var enableEncAssert  = false;
-            if (request.getParameter("enableResponseSignature") == 'true') {
-                enableRespSign = true;
-            }
-            if (request.getParameter("enableSigValidation") == 'true') {
-                enableSigValid = true;
-            }
-            if (request.getParameter("enableEncAssertion") == 'true') {
-                enableEncAssert = true;
-            }
-
-            var inboundConfigs = serviceProvider.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs;
-            if(inboundConfigs.constructor !== Array){
-                inboundConfigs = [inboundConfigs];
-            }
-            var config = null;
-            for (var i in inboundConfigs){
-                var conf = inboundConfigs[i];
-                if(conf.friendlyName == "salesforce"){
-                    config = conf;
-                    break;
-                }
-            }
-            if(config != null){
-                updateSp = updateSp + '<xsd1:inboundAuthenticationRequestConfigs>'+
-                        '<xsd1:friendlyName>' + config.friendlyName + '</xsd1:friendlyName>'+
-                        '<xsd1:inboundAuthKey>' + samlIssuer + '</xsd1:inboundAuthKey>'+
-                        '<xsd1:inboundAuthType>' + config.inboundAuthType+'</xsd1:inboundAuthType>';
-                var props = config.properties;
-                if(props.constructor !== Array) {
-                    props = [props];
-                }
-                for (var i in props) {
-                    var prop = props[i];
-                    var propval = "";
-                    if (prop.name == "alias") {
-                        propval = aliascert;
-                    } else if (prop.name == "signingAlgorithm") {
-                        propval = signAlgo;
-                    } else if (prop.name == "assertionConsumerURLs") {
-                        propval = acsUrls;
-                    } else if (prop.name == "enableEncAssertion") {
-                        propval = enableEncAssert;
-                    } else if (prop.name == "defaultAssertionConsumerURL") {
-                        propval = defaultacs;
-                    } else if (prop.name == "enableSigValidation") {
-                        propval = enableSigValid;
-                    } else if (prop.name == "enableResponseSignature") {
-                        propval = enableRespSign;
-                    } else if (prop.name == "digestAlgorithm") {
-                        propval = digAlgo;
-                    } else if (prop.name == "issuer") {
-                        propval = samlIssuer;
-                    } else if (prop.name == "hiddenFields") {
-                        propval = prop.value;
-                    }
-                    updateSp = updateSp + '<xsd1:properties>' +
-                            '<xsd1:confidential>' + prop.confidential + '</xsd1:confidential>' +
-                            '<xsd1:defaultValue>' + prop.defaultValue + '</xsd1:defaultValue>' +
-                            '<xsd1:description>' + prop.description + '</xsd1:description>' +
-                            '<xsd1:displayName>' + prop.displayName + '</xsd1:displayName>' +
-                            '<xsd1:displayOrder>' + prop.displayOrder + '</xsd1:displayOrder>' +
-                            '<xsd1:name>' + prop.name + '</xsd1:name>' +
-                            '<xsd1:required>' + prop.required + '</xsd1:required>' +
-                            '<xsd1:type>' + prop.type + '</xsd1:type>' +
-                            '<xsd1:value>' + propval + '</xsd1:value>' +
-                            '</xsd1:properties>';
-                }
-                updateSp = updateSp + '</xsd1:inboundAuthenticationRequestConfigs>';
-            }
-
+        var inboundConfigs = serviceProvider.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs;
+        if(inboundConfigs.constructor !== Array){
+            inboundConfigs = [inboundConfigs];
         }
-
+        var samlConfig = null;
+        for (var i in inboundConfigs){
+            var conf = inboundConfigs[i];
+            if(conf.inboundAuthType == "samlsso" && conf.inboundConfigType == sptype){
+                samlConfig = conf;
+                break;
+            }
+        }
+        if(samlConfig != null){
+            updateSp = updateSp + '<xsd1:inboundAuthenticationRequestConfigs>'+
+                    '<xsd1:friendlyName>' + samlConfig.friendlyName + '</xsd1:friendlyName>'+
+                    '<xsd1:inboundAuthKey>' + serviceProviderDTO["issuer"] + '</xsd1:inboundAuthKey>'+
+                    '<xsd1:inboundConfigType>' + samlConfig.inboundConfigType + '</xsd1:inboundConfigType>'+
+                    '<xsd1:inboundAuthType>' + samlConfig.inboundAuthType+'</xsd1:inboundAuthType>';
+            var props = samlConfig.properties;
+            //props can't be null
+            if(props.constructor !== Array) {
+                props = [props];
+            }
+            for (var i in props) {
+                var prop = props[i];
+                var propval = serviceProviderDTO[prop.name];
+                updateSp = updateSp + '<xsd1:properties>' +
+                        '<xsd1:confidential>' + prop.confidential + '</xsd1:confidential>' +
+                        '<xsd1:defaultValue>' + prop.defaultValue + '</xsd1:defaultValue>' +
+                        '<xsd1:description>' + prop.description + '</xsd1:description>' +
+                        '<xsd1:displayName>' + prop.displayName + '</xsd1:displayName>' +
+                        '<xsd1:displayOrder>' + prop.displayOrder + '</xsd1:displayOrder>' +
+                        '<xsd1:name>' + prop.name + '</xsd1:name>' +
+                        '<xsd1:required>' + prop.required + '</xsd1:required>' +
+                        '<xsd1:type>' + prop.type + '</xsd1:type>' +
+                        '<xsd1:value>' + propval + '</xsd1:value>' +
+                        '</xsd1:properties>';
+            }
+            updateSp = updateSp + '</xsd1:inboundAuthenticationRequestConfigs>';
+        }
         if (oauthConsumerID != null && oauthSecret != null && oauthConsumerID.length > 0 && oauthSecret.length > 0) {
             updateSp = updateSp + '<xsd1:inboundAuthenticationRequestConfigs>' +
                     '<xsd1:friendlyName>?</xsd1:friendlyName>' +
@@ -433,12 +316,10 @@ function updateSP(){
         '</xsd1:spProperties>'+
         '</xsd:serviceProvider>'+
         '</xsd:updateApplication>';
-        log.info(updateSp);
         spClient.updateApplicationData(updateSp);
-    }catch(e){
+    } catch (e) {
         log.error(e);
         print("This didn't work" + getErrorMessage(e.message));
-
     }
 
 }

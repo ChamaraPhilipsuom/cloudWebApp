@@ -23,7 +23,6 @@ function drawUpdatePage() {
         $('#spType').val(sptype);
         preDrawClaimConfig();
         var samlsp;
-        debugger;
         if (appdata != null && appdata.inboundAuthenticationConfig != null
             && appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs != null) {
             if (appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs.constructor !== Array) {
@@ -42,20 +41,17 @@ function drawUpdatePage() {
                             $('#passiveSTSWReply').val(property.value);
                         }
                     }
-                } else if (inboundConfig.inboundAuthType == "samlsso" && inboundConfig.inboundAuthKey.length > 0) {
+                } else if (inboundConfig.inboundAuthType == "samlsso" && inboundConfig.inboundConfigType==sptype) {
                     samlsp = inboundConfig;
                 }
             }
         }
         preDrawSAMLConfigPage(samlsp);
         preDrawOAuthConfigPage();
-
-
     }
 }
 
 function preDrawUpdatePage() {
-    debugger;
     var applicationName = getRequestParameter('applicationName');
     var sptype = getRequestParameter('sptype');
     $.ajax({
@@ -77,7 +73,6 @@ function preDrawUpdatePage() {
 }
 
 function updateSP() {
-    debugger;
     $('#number_of_claimmappings').val(document.getElementById("claimMappingAddTable").rows.length);
     var element = "<div class=\"modal fade\" id=\"messageModal\">\n" +
         "  <div class=\"modal-dialog\">\n" +
@@ -105,7 +100,6 @@ function updateCustomSP() {
         parameters = parameters + "&consumerID=" + $('#consumerID').val() + "&consumerSecret=" + $('#consumerSecret').val();
     }
     parameters = parameters + "&passiveSTSRealm=" + $('#passiveSTSRealm').val() + "&passiveSTSWReply=" + $('#passiveSTSWReply').val();
-    debugger;
     $.ajax({
         url: str,
         type: "POST",
@@ -163,7 +157,7 @@ function deleteSAMLIssuer(){
     $.ajax({
         url: str,
         type: "POST",
-        data: "issuer=" + $('#issuersaml').val() + "&clientAction=removeServiceProvider" + "&spName="+appdata.applicationName+"&cookie=" + cookie + "&user=" + userName,
+        data: "issuer=" + $('#issuer').val() + "&clientAction=removeServiceProvider" + "&spName="+appdata.applicationName+"&cookie=" + cookie + "&user=" + userName,
     })
         .done(function (data) {
             //reloadGrid();
@@ -182,7 +176,6 @@ function deleteSAMLIssuer(){
         });
 }
 function showSamlForm(){
-    $('#samlAttrIndexForm').hide();
     $('#samlConfigBtn').hide();
     $('#addServiceProvider').show();
 }
