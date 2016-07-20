@@ -122,7 +122,7 @@
                                                                 </a>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <table class="table tabel-label" id="claimMappingAddTable" style="display: table;">
+                                                                <table class="table table-striped tabel-label" id="claimMappingAddTable">
                                                                     <thead>
                                                                         <tr>
                                                                             <th style="display: none;" id="spccol">Service Provider Claim</th>
@@ -159,26 +159,6 @@
                                                                     <p style="color:black; font-weight:300;">Select Claim URI for Service Provider Role</p>
                                                                 </div>
                                                             </div>
-                                                            <!--<table class="table-borderless tabel-label" style="padding-top: 10px">-->
-                                                                <!--<tr>-->
-                                                                    <!--<td style="width:15%">-->
-                                                                        <!--<label id="addClaimUrisLbl">Role Claim URI:</label>-->
-                                                                    <!--</td>-->
-                                                                    <!--<td >-->
-                                                                        <!--<select id="roleClaim" name="roleClaim" class="form-control" style="float:left;min-width: 250px;">-->
-                                                                            <!--&lt;!&ndash;render role claimsa onload&ndash;&gt;-->
-                                                                        <!--</select>-->
-                                                                    <!--</td>-->
-                                                                <!--</tr>-->
-                                                                <!--<tr>-->
-                                                                    <!--<td  style="width:15%"></td>-->
-                                                                    <!--<td>-->
-                                                                        <!--<div class="sectionHelp">-->
-                                                                            <!--Select Claim URI for Service Provider Role-->
-                                                                        <!--</div>-->
-                                                                    <!--</td>-->
-                                                                <!--</tr>-->
-                                                            <!--</table>-->
                                                         </div>
                                                     </div>
                                                 </form>
@@ -537,14 +517,96 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <form id="addAppForm" name="addAppForm" class="form-horizontal" role="form" style="color: black;" hidden>
+                                                    <!--<form id="addAppForm" name="addAppForm" class="form-horizontal" role="form" style="color: black;" hidden>-->
+                                                        <!--<h4>Register New Application</h4>-->
+                                                        <!--<h5 style="margin-top: 15px;"> New Application</h5>-->
+                                                        <!--&lt;!&ndash;Hidden fields&ndash;&gt;-->
+                                                        <!--<div id="oauthHiddenFields" hidden>-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;OAuth Version&ndash;&gt;-->
+                                                        <!--<div class="form-group col-md-12" id="versionRow">-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;Application Name Hidden Field&ndash;&gt;-->
+                                                        <!--<div class="form-group col-md-12" id="appnamehid" hidden>-->
+                                                            <!--<label for="application">Application Name-->
+                                                            <!--</label>-->
+                                                            <!--<input type="text" class="form-control" id="application" name="application">-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;Callback Url&ndash;&gt;-->
+                                                        <!--<div class="form-group col-md-12" id="callback_row" hidden>-->
+                                                            <!--<label for="callback">Callback Url-->
+                                                            <!--<span class="required">*</span>-->
+                                                            <!--</label>-->
+                                                            <!--<input type="text" class="form-control" id="callback" name="callback">-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;Grant Types&ndash;&gt;-->
+                                                        <!--<div class="form-group col-md-12" id="grant_row" name="grant_row" hidden>-->
+                                                            <!--&lt;!&ndash;Filled in oauthConfig.js&ndash;&gt;-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;PKCE Mandatory&ndash;&gt;-->
+                                                        <!--<div class="form-group" id="pkce_enable" hidden>-->
+                                                            <!--<div class="col-md-12">-->
+                                                                <!--<label for="grantTypes" class="col-sm-2 control-label">Allowed Grant Types-->
+                                                                <!--</label>-->
+                                                                <!--<div class="col-sm-10">-->
+                                                                    <!--<label>-->
+                                                                        <!--<input type="checkbox" value="mandatory" name="pkce" id="pkce">-->
+                                                                        <!--Mandatory-->
+                                                                        <!--<div> Only allow applications that bear PKCE Code Challenge with them. </div>-->
+                                                                    <!--</label>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;PKCE Support plain&ndash;&gt;-->
+                                                        <!--<div class="form-group" id="pkce_support_plain" hidden>-->
+                                                            <!--<div class="col-md-12">-->
+                                                                <!--<label for="grantTypes" >Support PKCE 'Plain' Transform Algorithm-->
+                                                                <!--</label>-->
+                                                                <!--<div class="clearfix"></div>-->
+                                                                <!--<label>-->
+                                                                    <!--<input type="checkbox" checked="" value="yes" id ="pkce_plain" name="pkce_plain">-->
+                                                                    <!--Yes-->
+                                                                    <!--<div> Server supports 'S256' PKCE tranformation algorithm by default. </div>-->
+                                                                <!--</label>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash;Buttons&ndash;&gt;-->
+                                                        <!--<div class="form-group">-->
+                                                            <!--<div class="col-md-12">-->
+                                                                <!--<button class="cu-btn cu-btn-sm cu-btn-blue cu-btn-position" id="oauthRgsterBtn" onclick="onClickAdd();return false;">-->
+                                                                <!--<span class="fw-stack btn-action-ico">-->
+                                                                <!--<i class="fw fw-ring fw-stack-2x"></i>-->
+                                                                <!--<i class="fw fw-save fw-stack-1x"></i>-->
+                                                                <!--</span>-->
+                                                                <!--Add-->
+                                                                <!--</button>-->
+                                                                <!--<button class="cu-btn cu-btn-sm cu-btn-blue cu-btn-position" id="oauthUpdtBtn" onclick="onClickUpdate();return false;">-->
+                                                                <!--<span class="fw-stack btn-action-ico">-->
+                                                                <!--<i class="fw fw-ring fw-stack-2x"></i>-->
+                                                                <!--<i class="fw fw-save fw-stack-1x"></i>-->
+                                                                <!--</span>-->
+                                                                <!--Update-->
+                                                                <!--</button>-->
+                                                                <!--<button class="cu-btn cu-btn-sm cu-btn-blue cu-btn-position" onclick="cancelOauthForm();return false;">-->
+                                                                <!--<span class="fw-stack btn-action-ico">-->
+                                                                <!--<i class="fw fw-ring fw-stack-2x"></i>-->
+                                                                <!--<i class="fw fw-delete fw-stack-1x"></i>-->
+                                                                <!--</span>-->
+                                                                <!--Cancel-->
+                                                                <!--</button>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</form>-->
+                                                    <form id="addAppForm" name="addAppForm" class="form-horizontal" role="form" style="color: black; display: block;" hidden>
                                                         <h4>Register New Application</h4>
                                                         <h5 style="margin-top: 15px;"> New Application</h5>
                                                         <!--Hidden fields-->
                                                         <div id="oauthHiddenFields" hidden>
                                                         </div>
                                                         <!--OAuth Version-->
-                                                        <div class="form-group col-md-12" id="versionRow">
+                                                        <div class="form-group">
+                                                            <div class="col-md-12" id="versionRow">
+                                                            </div>
                                                         </div>
                                                         <!--Application Name Hidden Field-->
                                                         <div class="form-group col-md-12" id="appnamehid" hidden>
@@ -553,41 +615,43 @@
                                                             <input type="text" class="form-control" id="application" name="application">
                                                         </div>
                                                         <!--Callback Url-->
-                                                        <div class="form-group col-md-12" id="callback_row" hidden>
-                                                            <label for="callback">Callback Url
-                                                            <span class="required">*</span>
-                                                            </label>
-                                                            <input type="text" class="form-control" id="callback" name="callback">
+                                                        <div class="form-group" id="callback_row" style="display: block;" hidden>
+                                                            <div class="col-md-12">
+                                                                <label for="callback">Callback Url
+                                                                <span class="required">*</span>
+                                                                </label>
+                                                                <input type="text" class="form-control" id="callback" name="callback">
+                                                            </div>
                                                         </div>
                                                         <!--Grant Types-->
-                                                        <div class="form-group col-md-12" id="grant_row" name="grant_row" hidden>
+                                                        <div class="form-group" style="display: block;" hidden>
+                                                            <div class="col-md-12" id="grant_row" name="grant_row">
                                                             <!--Filled in oauthConfig.js-->
+                                                            </div>
                                                         </div>
                                                         <!--PKCE Mandatory-->
-                                                        <div class="form-group" id="pkce_enable" hidden>
+                                                        <div class="form-group" id="pkce_enable" style="display: block;" hidden>
                                                             <div class="col-md-12">
-                                                                <label for="grantTypes" class="col-sm-2 control-label">Allowed Grant Types
+                                                                <label for="pkce" >PKCE Mandatory
                                                                 </label>
-                                                                <div class="col-sm-10">
+                                                                <div class="checkbox">
                                                                     <label>
-                                                                        <input type="checkbox" value="mandatory" name="pkce" id="pkce">
-                                                                        Mandatory
-                                                                        <div> Only allow applications that bear PKCE Code Challenge with them. </div>
+                                                                        <input class="custom-checkbox custom-checkbox-white" type="checkbox" value="mandatory" name="pkce" id="pkce">
+                                                                        <span>Mandatory</span>
                                                                     </label>
                                                                 </div>
+                                                                <span> Only allow applications that bear PKCE Code Challenge with them. </span>
                                                             </div>
                                                         </div>
                                                         <!--PKCE Support plain-->
-                                                        <div class="form-group" id="pkce_support_plain" hidden>
+                                                        <div class="form-group" id="pkce_support_plain" style="display: block;" hidden>
                                                             <div class="col-md-12">
                                                                 <label for="grantTypes" >Support PKCE 'Plain' Transform Algorithm
                                                                 </label>
-                                                                <div class="clearfix"></div>
-                                                                <label>
-                                                                    <input type="checkbox" checked="" value="yes" id ="pkce_plain" name="pkce_plain">
-                                                                    Yes
-                                                                    <div> Server supports 'S256' PKCE tranformation algorithm by default. </div>
-                                                                </label>
+                                                                <div class="checkbox">
+                                                                    <label><input class="custom-checkbox custom-checkbox-white" type="checkbox" checked="" value="yes" id="pkce_plain" name="pkce_plain"><span>Yes</span></label>
+                                                                </div>
+                                                                <span> Server supports 'S256' PKCE tranformation algorithm by default. </span>
                                                             </div>
                                                         </div>
                                                         <!--Buttons-->
@@ -617,6 +681,7 @@
                                                             </div>
                                                         </div>
                                                     </form>
+
                                                 </div>
                                             </div>
                                         </div>

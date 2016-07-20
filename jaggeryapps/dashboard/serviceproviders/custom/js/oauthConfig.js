@@ -85,37 +85,41 @@ function drawOAuthConfigPage() {
     var versionRow = '<label for="oauthVersion" class="col-sm-2 control-label">OAuth Version' +
         '<span class="required">*</span>' +
         '</label>' +
-        '<div class="col-sm-10">' +
+        '<div class="">' +
+        '<label class="radio-inline">'+
         '<input id="oauthVersion10a" type="radio" value="OAuth-1.0a" name="oauthVersion"> 1.0a' +
+        '</label>' +
+        '<label class="radio-inline">' +
         '<input id="oauthVersion20" type="radio" checked="" value="OAuth-2.0" name="oauthVersion"> 2.0' +
+        '</label>'+
         '</div>';
     $('#versionRow').empty();
     $('#versionRow').append(versionRow);
-    var grantRow = '<label for="grantTypes" class="col-sm-2 control-label">Allowed Grant Types </label>' +
-        '<div class="col-sm-10">';
+    var grantRow = '<label for="grantTypes">Allowed Grant Types </label>' +
+        '<div>';
     if ($.inArray('authorization_code', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_code" name="grant_code" value="authorization_code" checked="checked" onclick="toggleCallback()"/>Code</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_code" name="grant_code" value="authorization_code" checked="checked" onclick="toggleCallback()"/>Code</label></div>';
     }
     if ($.inArray('implicit', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_implicit" name="grant_implicit" value="implicit" checked="checked" onclick="toggleCallback()"/>Implicit</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_implicit" name="grant_implicit" value="implicit" checked="checked" onclick="toggleCallback()"/>Implicit</label></div>';
     }
     if ($.inArray('password', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<lable><input type="checkbox" id="grant_password" name="grant_password" value="password" checked="checked"/>Password</lable>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_password" name="grant_password" value="password" checked="checked"/>Password</lable></div>';
     }
     if ($.inArray('client_credentials', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_client" name="grant_client" value="client_credentials" checked="checked"/>Client Credential</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_client" name="grant_client" value="client_credentials" checked="checked"/>Client Credential</label></div>';
     }
     if ($.inArray('refresh_token', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_refresh" name="grant_refresh" value="refresh_token" checked="checked"/>Refresh Token</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_refresh" name="grant_refresh" value="refresh_token" checked="checked"/>Refresh Token</label></div>';
     }
     if ($.inArray('urn:ietf:params:oauth:grant-type:saml1-bearer', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_saml1" name="grant_saml1" value="urn:ietf:params:oauth:grant-type:saml1-bearer" checked="checked"/>SAML1</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_saml1" name="grant_saml1" value="urn:ietf:params:oauth:grant-type:saml1-bearer" checked="checked"/>SAML1</label></div>';
     }
     if ($.inArray('urn:ietf:params:oauth:grant-type:saml2-bearer', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_saml2" name="grant_saml2" value="urn:ietf:params:oauth:grant-type:saml2-bearer" checked="checked"/>SAML2</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_saml2" name="grant_saml2" value="urn:ietf:params:oauth:grant-type:saml2-bearer" checked="checked"/>SAML2</label></div>';
     }
     if ($.inArray('iwa:ntlm', allowedGrantTypes) > 0) {
-        grantRow = grantRow + '<label><input type="checkbox" id="grant_ntlm" name="grant_ntlm" value="iwa:ntlm" checked="checked"/>IWA-NTLM</label>';
+        grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_ntlm" name="grant_ntlm" value="iwa:ntlm" checked="checked"/>IWA-NTLM</label></div>';
     }
 
     grantRow = grantRow + '</div>';
@@ -226,63 +230,63 @@ var hiddenFields = '<input id="consumerkey" name="consumerkey" type="hidden" />'
         $('#grant_row').show();
         $('#pkce_enable').show();
         $('#pkce_support_plain').show();
-        var grantRow = '<label for="grantTypes" class="col-sm-2 control-label">Allowed Grant Types </label>' +
-            '<div class="col-sm-10">';
+        var grantRow = '<label for="grantTypes" >Allowed Grant Types </label>' +
+            '<div>';
         if ($.inArray('authorization_code', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_code" name="grant_code" value="authorization_code"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_code" name="grant_code" value="authorization_code"';
             if (codeGrant) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>Code</label>';
+            grantRow = grantRow + '/>Code</label></div>';
         }
         if ($.inArray('implicit', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_implicit" name="grant_implicit" value="implicit"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_implicit" name="grant_implicit" value="implicit"';
             if (implicitGrant) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>Implicit</label>';
+            grantRow = grantRow + '/>Implicit</label></div>';
         }
         if ($.inArray('password', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<lable><input type="checkbox" id="grant_password" name="grant_password" value="password"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_password" name="grant_password" value="password"';
             if (passowrdGrant) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>Password</lable>';
+            grantRow = grantRow + '/>Password</label></div>';
         }
         if ($.inArray('client_credentials', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_client" name="grant_client" value="client_credentials"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_client" name="grant_client" value="client_credentials"';
             if (clientCredGrant) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>Client Credential</label>';
+            grantRow = grantRow + '/>Client Credential</label></div>';
         }
         if ($.inArray('refresh_token', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_refresh" name="grant_refresh" value="refresh_token"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_refresh" name="grant_refresh" value="refresh_token"';
             if (refreshGrant) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>Refresh Token</label>';
+            grantRow = grantRow + '/>Refresh Token</label></div>';
         }
         if ($.inArray('urn:ietf:params:oauth:grant-type:saml1-bearer', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_saml1" name="grant_saml1" value="urn:ietf:params:oauth:grant-type:saml1-bearer"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_saml1" name="grant_saml1" value="urn:ietf:params:oauth:grant-type:saml1-bearer"';
             if (samlGrant1) {
                 grantRow = grantRow + "checked=\"checked\""
             }
-            grantRow = grantRow + '/>SAML1</label>';
+            grantRow = grantRow + '/>SAML1</label></div>';
         }
         if ($.inArray('urn:ietf:params:oauth:grant-type:saml2-bearer', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_saml2" name="grant_saml2" value="urn:ietf:params:oauth:grant-type:saml2-bearer"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_saml2" name="grant_saml2" value="urn:ietf:params:oauth:grant-type:saml2-bearer"';
             if (samlGrant2) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>SAML2</label>';
+            grantRow = grantRow + '/>SAML2</label></div>';
         }
         if ($.inArray('iwa:ntlm', allowedGrantTypes) > 0) {
-            grantRow = grantRow + '<label><input type="checkbox" id="grant_ntlm" name="grant_ntlm" value="iwa:ntlm"';
+            grantRow = grantRow + '<div class="checkbox"><label><input class="custom-checkbox custom-checkbox-white" type="checkbox" id="grant_ntlm" name="grant_ntlm" value="iwa:ntlm"';
             if (ntlmGrant) {
                 grantRow = grantRow + "checked=\"checked\"";
             }
-            grantRow = grantRow + '/>IWA-NTLM</label>';
+            grantRow = grantRow + '/>IWA-NTLM</label></div>';
         }
         grantRow = grantRow + '</div>';
         $('#grant_row').empty();

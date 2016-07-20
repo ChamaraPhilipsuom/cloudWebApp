@@ -28,8 +28,8 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
             } else {
                 row = row + ""
             }
-            row = row + '><input type="text" class="spClaimVal form-control" style="width: 98%;" value="' + claimMapping[entry].remoteClaim.claimUri + '" id="spClaim_' + i + '" name="spClaim_' + i + '" readonly="readonly"/></td>' +
-                '<td>\n' +
+            row = row + '><input type="text" class="spClaimVal form-control" value="' + claimMapping[entry].remoteClaim.claimUri + '" id="spClaim_' + i + '" name="spClaim_' + i + '" readonly="readonly"/></td>' +
+                '<td style="width: 40%;">\n' +
                 '<select id="idpClaim_' + i + '" name="idpClaim_' + i + '" class="idpClaim form-control" style="float:left; width: 100%">';
             for (var localClaimNameEntry in spConfigClaimUris) {
                 var localClaimName = spConfigClaimUris[localClaimNameEntry];
@@ -42,11 +42,11 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
 
             row = row + '</select>\n' +
                 '</td>' +
-                '<td style=';
+                '<td style="text-align: center;';
             if (isLocalClaimsSelected) {
-                row = row + "display:none;"
+                row = row + 'display:none;"';
             } else {
-                row = row + ""
+                row = row + '"';
             }
             row = row + '>';
             if (claimMapping[entry].requested == 'true') {
@@ -144,10 +144,12 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
         if ($('input:radio[name=claim_dialect]:checked').val() == "local") {
             $('.spClaimHeaders').hide();
             $('#roleMappingSelection').hide();
+            $('#spccol').hide();
+            $('#rccol').hide();
             jQuery('#claimMappingAddTable').append(jQuery('<tr>' +
-                '<td style="display:none;"><input type="text" style="width: 98%;" id="spClaim_' + claimMappinRowID + '" name="spClaim_' + claimMappinRowID + '"/></td> ' +
-                '<td>' + idpClaimListDiv.html() + '</td>' +
-                '<td style="display:none;"><input type="checkbox"  name="spClaim_req_' + claimMappinRowID + '"  id="spClaim_req_' + claimMappinRowID + '" checked/></td>' +
+                '<td style="display:none;"><input type="text"" id="spClaim_' + claimMappinRowID + '" name="spClaim_' + claimMappinRowID + '"/></td> ' +
+                '<td style="width: 85%;">' + idpClaimListDiv.html() + '</td>' +
+                '<td style="text-align: center;display:none;"><div class="checkbox"><label><input type="checkbox"  class="custom-checkbox custom-checkbox-white" name="spClaim_req_' + claimMappinRowID + '"  id="spClaim_req_' + claimMappinRowID + '" checked/></label></div></td>' +
                 '<td><a onclick="deleteClaimRow(this);return false;" href="#" class="icon-link" style="background-image: url(images/delete.gif)"> Delete</a></td>' +
                 '</tr>'));
         }
@@ -157,9 +159,9 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
             $('#spccol').show();
             $('#rccol').show();
             jQuery('#claimMappingAddTable').append(jQuery('<tr>' +
-                '<td><input type="text" class="spClaimVal form-control" style="width: 98%;" id="spClaim_' + claimMappinRowID + '" name="spClaim_' + claimMappinRowID + '"/></td> ' +
-                '<td>' + idpClaimListDiv.html() + '</td>' +
-                '<td><div class="checkbox"><label><input type="checkbox"  class="custom-checkbox custom-checkbox-white" name="spClaim_req_' + claimMappinRowID + '"  id="spClaim_req_' + claimMappinRowID + '"/></label></div></td>' +
+                '<td><input type="text" class="spClaimVal form-control"" id="spClaim_' + claimMappinRowID + '" name="spClaim_' + claimMappinRowID + '"/></td> ' +
+                '<td style="width: 40%;">' + idpClaimListDiv.html() + '</td>' +
+                '<td style="text-align: center;"><div class="checkbox"><label><input type="checkbox"  class="custom-checkbox custom-checkbox-white" name="spClaim_req_' + claimMappinRowID + '"  id="spClaim_req_' + claimMappinRowID + '"/></label></div></td>' +
                 '<td><a onclick="deleteClaimRow(this);return false;" href="#" class="icon-link" style="background-image: url(images/delete.gif)"> Delete</a></td>' +
                 '</tr>'));
             $('#spClaim_' + claimMappinRowID).change(function () {
