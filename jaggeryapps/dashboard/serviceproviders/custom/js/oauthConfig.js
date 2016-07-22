@@ -82,7 +82,7 @@ function drawOAuthConfigPage() {
         $('#application').show();
         $('#appnamehid').show();
     }
-    var versionRow = '<label for="oauthVersion" class="col-sm-2 control-label">OAuth Version' +
+    var versionRow = '<label for="oauthVersion">OAuth Version' +
         '<span class="required">*</span>' +
         '</label>' +
         '<div class="">' +
@@ -130,6 +130,7 @@ function drawOAuthConfigPage() {
         $('#pkce_support_plain').show();
     }
     $('#oauthRgsterBtn').show();
+    $('#addAppForm').hide();
     $('#oauthUpdtBtn').hide();
     $('#oauthHiddenFields').empty();
 //TODO : check the following condition if needed for cancel button
@@ -197,12 +198,12 @@ var hiddenFields = '<input id="consumerkey" name="consumerkey" type="hidden" />'
     $('#oauthHiddenFields').append(hiddenFields);
     $('#consumerID').val(app.oauthConsumerKey);
     $('#consumerSecret').val(app.oauthConsumerSecret);
-    $('#addAppForm h4').html('View/Update application settings');
-    $('#addAppForm h5').html('Application Settings');
+    //$('#addAppForm h4').html('View/Update application settings');
+    //$('#addAppForm h5').html('Application Settings');
     $('#consumerkey').val(app.oauthConsumerKey);
     $('#consumersecret').val(app.oauthConsumerSecret);
     $('#oauthVersion').val(app.OAuthVersion);
-    var versionRow = '<label for="oauthVersion" class="col-sm-2 control-label">OAuth Version' +
+    var versionRow = '<label for="oauthVersion">OAuth Version' +
         '<span class="required">*</span>' +
         '</label>' +
         '<div class="col-sm-10">' +
@@ -314,7 +315,9 @@ var hiddenFields = '<input id="consumerkey" name="consumerkey" type="hidden" />'
         //on load adjust the form based on the current settings
         adjustFormEdit();
         $("form[name='addAppForm']").change(adjustFormEdit);
-    })
+    });
+    debugger;
+    cancelOauthForm();
 }
 function onClickAdd() {
     var version2Checked = document.getElementById("oauthVersion20").checked;
@@ -479,11 +482,11 @@ function adjustFormEdit() {
 }
 
 function showHidePassword(element, inputId){
-    if($(element).val()=='Show'){
+    if($('#secretSpan').html()=='Show'){
         document.getElementById(inputId).type = 'text';
-        $(element).val('Hide');
+        $('#secretSpan').html('Hide');
     }else{
         document.getElementById(inputId).type = 'password';
-        $(element).val('Show');
+        $('#secretSpan').html('Show');
     }
 }

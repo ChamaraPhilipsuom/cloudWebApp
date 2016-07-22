@@ -47,15 +47,19 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
         var prop = samlsp.properties[i];
         providerProps[prop.name] = prop;
     }
-    $('#addServiceProvider h4').html(tableTitle);
+    //$('#addServiceProvider h4').html(tableTitle);
 
     if(providerProps["hiddenFields"] != null && providerProps["hiddenFields"].value.length > 0){
         $('#hiddenFields').val(providerProps["hiddenFields"].value)
         hiddenFields = providerProps["hiddenFields"].value.split(',');
     }
-
     $('#issuer').val(providerProps["issuer"].value);
     $('#hiddenIssuer').val(issuer);
+    if (isEditSP) {
+        $('#issuer').prop('readonly', true);
+    } else {
+        $('#issuer').prop('readonly', false);
+    }
 
     if (isEditSP && providerProps["assertionConsumerURLs"] != null && providerProps["assertionConsumerURLs"].value.length > 0) {
         var assertionConsumerURLTblRow =
@@ -471,199 +475,57 @@ function drawSAMLConfigPage(issuer, isEditSP, tableTitle, samlsp) {
         $('#attributeConsumingServiceIndex').val(providerProps["acsindex"].value);
         $('#acsindex').val(providerProps["acsindex"].value);
     }
+    controlHiddenFields(hiddenFields);
     $('#addServiceProvider').show();
 }
 
-function drawSalesForce(salesforceConfig){
-    showSamlForm();
-    $('#oauthPanel').hide();
-    $('#wsfedPanel').hide();
-    $('#samlRgsterBtn').hide();
-    $('#samlUpdtBtn').hide();
-    $('#samlCanclBtn').hide();
-    $('#idpInitSLORow').hide();
-    $('#idpInitSSORow').hide();
-    $('#receipientRow').hide();
-    $('#audienceRestrictionRow').hide();
-    $('#attributeRow').hide();
-    $('#singleLogoutRow').hide();
-    $('#nameIDRow').hide();
-    $('#issuerRow').hide();
-    $('#addServiceProvider h4').html('Salesforce Configuration');
-    $('#spType').val('salesforce');
-
-    var signAlgorithm = signingAlgorithmUriByConfig;
-    var digestAlgorithm = digestAlgorithmUriByConfig;
-    var doSignResponse = false;
-    var doValidateSignatureInRequests = false;
-    var doEnableEncryptedAssertion = false;
-    var certAlias = 'http://www.w3.org/2000/09/xmldsig#rsa-sha1';
-    var acsurls = null;
-    var defaultacs = null;
-    var salesforceProperties = {};
-    if(salesforceConfig != null && salesforceConfig.properties != null){
-        if(salesforceConfig.properties.constructor !== Array){
-            salesforceConfig.properties = [salesforceConfig.properties.constructor];
-        }
-        for (var i in salesforceConfig.properties) {
-            salesforceProperties[salesforceConfig.properties[i].name] = salesforceConfig.properties[i];
-        }
-        if (salesforceProperties["enableEncAssertion"].value == "true") {
-            doEnableEncryptedAssertion = true;
-        }
-        if (salesforceProperties["enableResponseSignature"].value == "true") {
-            doSignResponse = true;
-        }
-        if (salesforceProperties["enableSigValidation"].value == "true") {
-            doValidateSignatureInRequests = true;
-        }
-        if (salesforceProperties["signingAlgorithm"].value != null && salesforceProperties["signingAlgorithm"].value.length > 0) {
-            signAlgorithm = salesforceProperties["signingAlgorithm"].value;
-        }
-        if (salesforceProperties["digestAlgorithm"].value != null && salesforceProperties["digestAlgorithm"].value.length > 0) {
-            digestAlgorithm = salesforceProperties["digestAlgorithm"].value;
-        }
-        if (salesforceProperties["alias"].value != null && salesforceProperties["alias"].value.length > 0) {
-            certAlias = salesforceProperties["alias"].value;
-        }
-        if (salesforceProperties["assertionConsumerURLs"].value != null && salesforceProperties["assertionConsumerURLs"].value.length > 0) {
-            acsurls = salesforceProperties["assertionConsumerURLs"].value.split(',');
-        }
-        if (salesforceProperties["defaultAssertionConsumerURL"].value != null && salesforceProperties["defaultAssertionConsumerURL"].value.length > 0) {
-            defaultacs = salesforceProperties["defaultAssertionConsumerURL"].value;
-        }
-        if (salesforceProperties["issuer"].value != null && salesforceProperties["issuer"].value.length > 0) {
-            $('#hiddenIssuer').val(salesforceProperties["issuer"].value);
-        }
-
+function controlHiddenFields(hiddenFields){
+    if (hiddenFields.indexOf("issuer") > -1) {
+        $('#issuerRow').hide();
     }
-    var defaultAssertionConsumerURLRow = "<option value=\"\">---Select---</option>\n";
-    if (acsurls != null) {
-        var assertionConsumerURLTblRow =
-            "<table id=\"assertionConsumerURLsTable\" style=\"margin-bottom: 3px;\" class=\"styledInner table table-bordered col-sm-offset-1\">" +
-            "<tbody id=\"assertionConsumerURLsTableBody\">";
-
-        var assertionConsumerURLsBuilder = "";
-        var acsColumnId = 0;
-        if (acsurls.constructor !== Array) {
-            acsurls = [acsurls];
-        }
-        if (defaultacs == null) {
-            defaultacs = acsurls[0];
-        }
-        for (var i in acsurls) {
-            var assertionConsumerURL = acsurls[i];
-            var option = "";
-            if (assertionConsumerURL == defaultacs) {
-                option = "<option value=\"" + assertionConsumerURL + "\" selected>" + assertionConsumerURL + "</option>";
-            } else {
-                option = "<option value=\"" + assertionConsumerURL + "\">" + assertionConsumerURL + "</option>";
-            }
-            defaultAssertionConsumerURLRow = defaultAssertionConsumerURLRow + option;
-
-            if (assertionConsumerURLsBuilder.length > 0) {
-                assertionConsumerURLsBuilder = assertionConsumerURLsBuilder + "," + assertionConsumerURL;
-            } else {
-                assertionConsumerURLsBuilder = assertionConsumerURLsBuilder + assertionConsumerURL;
-            }
-
-            var trow = " <tr id=\"acsUrl_" + acsColumnId + "\">\n" +
-                "<td style=\"padding-left: 15px !important; color: rgb(119, 119, 119);font-style: italic;\">\n" +
-                assertionConsumerURL +
-                "</td>" +
-                "<td>" +
-                "<a onclick=\"removeAssertionConsumerURL('" + assertionConsumerURL + "','acsUrl_" + acsColumnId + "');return false;\"" +
-                "href=\"#\" class=\"icon-link\" style=\"background-image: url(../admin/images/delete.gif)\">\n" +
-                "Delete" +
-                "</a>\n" +
-                "</td>\n" +
-                "</tr>";
-            assertionConsumerURLTblRow = assertionConsumerURLTblRow + trow;
-            acsColumnId++;
-        }
-
-        var assertionConsumerURL = assertionConsumerURLsBuilder.length > 0 ? assertionConsumerURLsBuilder : "";
-        assertionConsumerURLTblRow = assertionConsumerURLTblRow + "</tbody>\n" +
-            "</table>\n";
-        $('#assertionConsumerURLs').val(assertionConsumerURL);
-        $('#currentColumnId').val(acsColumnId);
-        $('#assertionConsumerURLTblRow').empty();
-        $('#assertionConsumerURLTblRow').append(assertionConsumerURLTblRow);
+    if (hiddenFields.indexOf("assertionConsumerURLs") > -1) {
+        $('#acsRow').hide();
+        $('#defaultAssertionConsumerURLRow').hide();
     }
-    $('#defaultAssertionConsumerURL').empty();
-    $('#defaultAssertionConsumerURL').append(defaultAssertionConsumerURLRow);
-
-
-    var certificateAliasRow = "";
-    if (spConfigCertificateAlias != null) {
-        for (var i in spConfigCertificateAlias) {
-            var alias = spConfigCertificateAlias[i];
-            if (alias != null) {
-                if (alias == certAlias) {
-                    certificateAliasRow = certificateAliasRow + '<option selected="selected" value="' + alias + '">' + alias +
-                        '</option>\n';
-                } else {
-                    certificateAliasRow = certificateAliasRow + '<option value="' + alias + '">' + alias + '</option>\n';
-                }
-            }
-        }
+    if (hiddenFields.indexOf("nameIdFormat") > -1) {
+        $('#nameIDRow').hide();
     }
-    $('#alias').empty();
-    $('#alias').append(certificateAliasRow);
-
-
-    var defaultSigningAlgorithmRow = "";
-    if (spConfigSigningAlgos != null) {
-        for (var i in spConfigSigningAlgos) {
-            var signingAlgo = spConfigSigningAlgos[i];
-
-            if (signAlgorithm != null && signingAlgo == signAlgorithm) {
-                defaultSigningAlgorithmRow = defaultSigningAlgorithmRow + '<option value="' + signingAlgo + '" selected>\n' +
-                    signingAlgo + '</option>';
-            } else {
-                defaultSigningAlgorithmRow = defaultSigningAlgorithmRow + '<option value="' + signingAlgo + '">' + signingAlgo +
-                    '</option>\n';
-            }
-        }
+    if (hiddenFields.indexOf("alias") > -1) {
+        $('#certificateRow').hide();
     }
-    $('#signingAlgorithm').empty();
-    $('#signingAlgorithm').append(defaultSigningAlgorithmRow);
-
-    var digestAlgorithmRow = "";
-
-    if (spConfigDigestAlgos != null) {
-        for (var i in spConfigDigestAlgos) {
-            var digestAlgo = spConfigDigestAlgos[i];
-            if (digestAlgorithm != "" && digestAlgo == digestAlgorithm) {
-                digestAlgorithmRow = digestAlgorithmRow + '<option value="' + digestAlgo + '" selected>' + digestAlgo +
-                    '</option>';
-            } else {
-                digestAlgorithmRow = digestAlgorithmRow + '<option value="' + digestAlgo + '">' + digestAlgo +
-                    '</option>';
-            }
-        }
+    if (hiddenFields.indexOf("signingAlgorithm") > -1) {
+        $('#signingAlgorithmRow').hide();
     }
-    $('#digestAlgorithm').empty();
-    $('#digestAlgorithm').append(digestAlgorithmRow);
-    if (doSignResponse) {
-        $('#enableResponseSignature').prop('checked', true);
-    } else {
-        $('#enableResponseSignature').prop('checked', false);
+    if (hiddenFields.indexOf("digestAlgorithm") > -1) {
+        $('#digestAlgorithmRow').hide();
     }
-
-    if (doValidateSignatureInRequests) {
-        $('#enableSigValidation').prop('checked', true);
-    } else {
-        $('#enableSigValidation').prop('checked', false);
+    if (hiddenFields.indexOf("enableResponseSignature") > -1) {
+        $('#enableResponseSignatureRow').hide();
     }
-
-    if (doEnableEncryptedAssertion) {
-        $('#enableEncAssertion').prop('checked', true);
-    } else {
-        $('#enableEncAssertion').prop('checked', false);
+    if (hiddenFields.indexOf("enableSigValidation") > -1) {
+        $('#enableSigValidationRow').hide();
     }
-
-
+    if (hiddenFields.indexOf("enableEncAssertion") > -1) {
+        $('#enableEncAssertionRow').hide();
+    }
+    if (hiddenFields.indexOf("enableSingleLogout") > -1) {
+        $('#singleLogoutRow').hide();
+    }
+    if (hiddenFields.indexOf("enableAttributeProfile") > -1) {
+        $('#attributeRow').hide();
+    }
+    if (hiddenFields.indexOf("enableAudienceRestriction") > -1) {
+        $('#audienceRestrictionRow').hide();
+    }
+    if (hiddenFields.indexOf("enableRecipients") > -1) {
+        $('#receipientRow').hide();
+    }
+    if (hiddenFields.indexOf("enableIdPInitSSO") > -1) {
+        $('#idpInitSSORow').hide();
+    }
+    if (hiddenFields.indexOf("enableIdPInitSLO") > -1) {
+        $('#idpInitSLORow').hide();
+    }
 }
 
 function onClickAddACRUrl() {

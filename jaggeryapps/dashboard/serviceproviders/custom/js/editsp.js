@@ -47,7 +47,11 @@ function drawUpdatePage() {
             }
         }
         preDrawSAMLConfigPage(samlsp);
-        preDrawOAuthConfigPage();
+        if(sptype=="custom"){
+            preDrawOAuthConfigPage();
+            $('#oauthPanel').show();
+            $('#wsfedPanel').show();
+        }
     }
 }
 
@@ -175,6 +179,7 @@ function deleteSAMLIssuer(){
             console.log('completed');
         });
 }
+
 function showSamlForm(){
     $('#samlConfigBtn').hide();
     $('#addServiceProvider').show();
@@ -190,6 +195,7 @@ function showOauthForm() {
 }
 
 function cancelOauthForm() {
+    debugger;
     $('#addAppForm').hide();
     if ($('#isEditOauthSP').val() == 'true') {
         $('#oauthAttrIndexForm').show();

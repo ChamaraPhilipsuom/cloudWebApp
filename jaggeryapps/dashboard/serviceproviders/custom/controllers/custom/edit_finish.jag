@@ -92,6 +92,7 @@ function updateSP(){
         serviceProviderDTO["enableIdPInitSSO"] = false;
         serviceProviderDTO["enableIdPInitSLO"] = false;
         serviceProviderDTO["idpSLOURLs"] = [];
+        serviceProviderDTO["hiddenFields"] = request.getParameter('hiddenFields');
 
         if (request.getParameter("enableSingleLogout") == 'true') {
             serviceProviderDTO["enableSingleLogout"] = true;

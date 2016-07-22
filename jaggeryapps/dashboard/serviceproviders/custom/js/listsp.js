@@ -62,7 +62,7 @@ function drawList() {
                 spdesc = spList[i].description.split(']') [1];
                 var type = spList[i].description.split(']') [0];
                 if (type == 'custom') {
-                    spimage = '<img src="../images/is/netsuit.png " class="square-element">';
+                    spimage = '<img src="../images/is/custom.png " class="square-element">';
                 } else if (type == 'concur') {
                     spimage = '<img src="../images/is/concur.png " class="square-element">';
                 } else if (type == 'gotomeeting') {

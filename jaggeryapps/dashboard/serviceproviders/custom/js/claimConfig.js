@@ -1,3 +1,23 @@
+function preDrawClaimConfig() {
+    var spClaimConfig = null;
+    var isLocalClaimsSelected = true;
+    var claimMapping = null;
+
+    if (appdata != null) {
+        spClaimConfig = appdata.claimConfig;
+    }
+    if (spClaimConfig != null) {
+        isLocalClaimsSelected = (spClaimConfig.localClaimDialect.toLowerCase() === 'true');
+        claimMapping = spClaimConfig.claimMappings;
+        if (claimMapping != null && claimMapping.constructor !== Array) {
+            var tempArr = [];
+            tempArr[0] = claimMapping;
+            claimMapping = tempArr;
+        }
+    }
+    getClaimUrisClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping);
+}
+
 function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
     if(isLocalClaimsSelected){
         $("#claim_dialect_wso2").prop("checked", true);
@@ -68,6 +88,9 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
 
     }
     var subjectClaimUri = appdata.localAndOutBoundAuthenticationConfig.subjectClaimUri;
+    if(subjectClaimUri==null || subjectClaimUri.length==0 ){
+        subjectClaimUri = "http://wso2.org/claims/emailaddress";
+    }
     var subjectoptionList = '<option value="">---Select---</option>';
     if (isLocalClaimsSelected) {
         for (var localClaimNameEntry in spConfigClaimUris) {
@@ -207,25 +230,6 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
         //}
     });
 }
-function preDrawClaimConfig() {
-    var spClaimConfig = null;
-    var isLocalClaimsSelected = true;
-    var claimMapping = null;
-
-    if (appdata != null) {
-        spClaimConfig = appdata.claimConfig;
-    }
-    if (spClaimConfig != null) {
-        isLocalClaimsSelected = (spClaimConfig.localClaimDialect.toLowerCase() === 'true');
-        claimMapping = spClaimConfig.claimMappings;
-        if (claimMapping != null && claimMapping.constructor !== Array) {
-            var tempArr = [];
-            tempArr[0] = claimMapping;
-            claimMapping = tempArr;
-        }
-    }
-    getClaimUrisClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping);
-}
 function getClaimUrisClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
 
     $.ajax({
@@ -261,7 +265,6 @@ function resetRoleClaims() {
         }
     });
 }
-
 function changeDialectUIs(element) {
     $("#roleClaim option").filter(function () {
         return $(this).val().length > 0;
@@ -293,7 +296,6 @@ function changeDialectUIs(element) {
         $('#roleMappingSelection').show();
     }
 }
-
 function deleteClaimRow(obj) {
     if ($('input:radio[name=claim_dialect]:checked').val() == "custom") {
         if ($(obj).parent().parent().find('input.spClaimVal').val().length > 0) {
@@ -307,7 +309,6 @@ function deleteClaimRow(obj) {
         $('#claimMappingAddTable').hide();
     }
 }
-
 function validateForDuplications(selector, authenticatorName, type) {
     if ($(selector).length > 0) {
         var isNew = true;
