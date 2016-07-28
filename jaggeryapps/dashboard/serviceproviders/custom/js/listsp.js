@@ -22,7 +22,6 @@ function deleteCustomSP(applicationName) {
         });
 }
 
-
 function reloadGrid() {
     spList = null;
     $.ajax({
@@ -61,17 +60,17 @@ function drawList() {
             if (spList[i].description.indexOf(']') > -1) {
                 spdesc = spList[i].description.split(']') [1];
                 var type = spList[i].description.split(']') [0];
-                if (type == 'custom') {
+                if (type == CUSTOM_SP) {
                     spimage = '<img src="../images/is/custom.png " class="square-element">';
-                } else if (type == 'concur') {
+                } else if (type == CONCUR_SP) {
                     spimage = '<img src="../images/is/concur.png " class="square-element">';
-                } else if (type == 'gotomeeting') {
+                } else if (type == GOTOMEETING_SP) {
                     spimage = '<img src="../images/is/gotomeeting.png " class="square-element">';
-                } else if (type == 'netsuit') {
+                } else if (type == NETSUIT_SP) {
                     spimage = '<img src="../images/is/netsuit.png " class="square-element">';
-                } else if (type == 'zuora') {
+                } else if (type == ZUORA_SP) {
                     spimage = '<img src="../images/is/zuora.png " class="square-element">';
-                } else if (type == 'salesforce') {
+                } else if (type == SALESFORCE_SP) {
                     spimage = '<img src="../images/is/salesforce.png " class="square-element">';
                 } else {
                     spimage = '<img src="../images/is/netsuit.png " class="square-element">';

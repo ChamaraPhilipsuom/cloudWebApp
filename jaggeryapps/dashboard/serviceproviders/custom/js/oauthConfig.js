@@ -72,6 +72,7 @@ function preDrawOAuthConfigPage() {
         });
     }
 }
+
 function drawOAuthConfigPage() {
     var page = "";
     var applicationSPName = appdata.applicationName;
@@ -165,6 +166,7 @@ function drawOAuthConfigPage() {
     })
 
 }
+
 function drawOAuthEditPage() {
     var VERSION_2 = 'OAuth-2.0';
     var VERSION_1 = 'OAuth-1.0a';
@@ -316,9 +318,9 @@ var hiddenFields = '<input id="consumerkey" name="consumerkey" type="hidden" />'
         adjustFormEdit();
         $("form[name='addAppForm']").change(adjustFormEdit);
     });
-    debugger;
     cancelOauthForm();
 }
+
 function onClickAdd() {
     var version2Checked = document.getElementById("oauthVersion20").checked;
     if (($(jQuery("#grant_code"))[0] != null && $(jQuery("#grant_code"))[0].checked) || ($(jQuery("#grant_implicit"))[0] && $(jQuery("#grant_implicit"))[0].checked)) {
@@ -370,6 +372,7 @@ function validate() {
     //}
     saveOauthConfig();
 }
+
 function adjustForm() {
     var VERSION_2 = 'OAuth-2.0';
     var VERSION_1 = 'OAuth-1.0a';
@@ -402,7 +405,6 @@ function adjustForm() {
     }
 
 }
-
 //<EDIT OAUTH>
 function onClickUpdate() {
     //var versionValue = document.getElementsByName("oauthVersion")[0].value;

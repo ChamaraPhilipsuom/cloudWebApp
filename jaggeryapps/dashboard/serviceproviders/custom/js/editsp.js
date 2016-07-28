@@ -3,7 +3,7 @@ function drawUpdatePage() {
         $('#spName').val(appdata.applicationName);
         $('#oldSPName').val(appdata.applicationName);
         var spDescription = appdata.description;
-        var sptype = 'custom';
+        var sptype = CUSTOM_SP;
         var spProperties = appdata.spProperties;
         if(spProperties != null) {
             if (spProperties.constructor !== Array) {
@@ -11,7 +11,7 @@ function drawUpdatePage() {
             }
             for (var i in spProperties) {
                 var property = spProperties[i];
-                if (property.name == "appType" && property.value != null && property.value.length > 0) {
+                if (property.name == WELLKNOWN_APPLICATION_TYPE && property.value != null && property.value.length > 0) {
                     sptype = property.value;
                 }
             }
@@ -23,31 +23,40 @@ function drawUpdatePage() {
         $('#spType').val(sptype);
         preDrawClaimConfig();
         var samlsp;
-        if (appdata != null && appdata.inboundAuthenticationConfig != null
-            && appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs != null) {
+        if (appdata != null && appdata.inboundAuthenticationConfig != null && appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs != null) {
             if (appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs.constructor !== Array) {
                 appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs = [appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs];
             }
             for (var i in appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs) {
                 var inboundConfig = appdata.inboundAuthenticationConfig.inboundAuthenticationRequestConfigs[i];
-                if (inboundConfig.inboundAuthType == "passivests" && inboundConfig.inboundAuthKey.length > 0) {
+                if (inboundConfig.inboundAuthType == PASSIVE_STS && inboundConfig.inboundAuthKey.length > 0) {
                     $('#passiveSTSRealm').val(inboundConfig.inboundAuthKey);
                     if (inboundConfig.properties != null && inboundConfig.properties.constructor !== Array) {
                         inboundConfig.properties = [inboundConfig.properties];
                     }
                     for (var i in inboundConfig.properties) {
                         var property = inboundConfig.properties[i];
-                        if (property.name == "passiveSTSWReply") {
+                        if (property.name == PASSIVE_STS_REPLY) {
                             $('#passiveSTSWReply').val(property.value);
+                            break;
                         }
                     }
-                } else if (inboundConfig.inboundAuthType == "samlsso" && inboundConfig.inboundConfigType==sptype) {
-                    samlsp = inboundConfig;
+                } else if (inboundConfig.inboundAuthType == SAML_SSO) {
+                    if (inboundConfig.properties != null && inboundConfig.properties.constructor !== Array) {
+                        inboundConfig.properties = [inboundConfig.properties];
+                    }
+                    for (var i in inboundConfig.properties) {
+                        var property = inboundConfig.properties[i];
+                        if (property.name == WELLKNOWN_APPLICATION_TYPE && property.value == sptype) {
+                            samlsp = inboundConfig;
+                            break;
+                        }
+                    }
                 }
             }
         }
         preDrawSAMLConfigPage(samlsp);
-        if(sptype=="custom"){
+        if (sptype == CUSTOM_SP) {
             preDrawOAuthConfigPage();
             $('#oauthPanel').show();
             $('#wsfedPanel').show();
@@ -156,30 +165,6 @@ function getRequestParameter(param) {
     return vars;
 }
 
-function deleteSAMLIssuer(){
-    var str = PROXY_CONTEXT_PATH + "/dashboard/serviceproviders/custom/controllers/custom/samlSSOConfig_handler.jag";
-    $.ajax({
-        url: str,
-        type: "POST",
-        data: "issuer=" + $('#issuer').val() + "&clientAction=removeServiceProvider" + "&spName="+appdata.applicationName+"&cookie=" + cookie + "&user=" + userName,
-    })
-        .done(function (data) {
-            //reloadGrid();
-            //message({content:'Successfully saved changes to the profile',type:'info', cbk:function(){} });
-            preDrawUpdatePage(appdata.applicationName);
-        })
-        .fail(function () {
-            message({
-                content: 'Error while updating Profile', type: 'error', cbk: function () {
-                }
-            });
-
-        })
-        .always(function () {
-            console.log('completed');
-        });
-}
-
 function showSamlForm(){
     $('#samlConfigBtn').hide();
     $('#addServiceProvider').show();
@@ -195,7 +180,6 @@ function showOauthForm() {
 }
 
 function cancelOauthForm() {
-    debugger;
     $('#addAppForm').hide();
     if ($('#isEditOauthSP').val() == 'true') {
         $('#oauthAttrIndexForm').show();

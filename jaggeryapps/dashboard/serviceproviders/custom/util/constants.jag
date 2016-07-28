@@ -1,5 +1,4 @@
 <%
-
 var DEFAULT_CLAIM_URL = "http://wso2.org/claims";
 var OPENID_REG_CLAIM_URL = "http://schema.openid.net/2007/05/claims";
 var UI_USER_PERMISSIONS = "user-permissions";
@@ -17,4 +16,6 @@ var SAML_ENABLED = "saml.enabled";
 
 var SAML_RESPONSE = "saml.response";
 var SAML_PROPERTIES = "saml.config"
+
+var SAML_SSO = "samlssocloud";
 %>

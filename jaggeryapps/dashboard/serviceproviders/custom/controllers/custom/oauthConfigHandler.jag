@@ -337,7 +337,6 @@ function postAddOAuthInboundAuthnConfig(consumerApp,applicationName){
     updateApp = updateApp + '<xsd1:permissionAndRoleConfig>' + serviceProvider.permissionAndRoleConfig + '</xsd1:permissionAndRoleConfig>' +
             '</xsd:serviceProvider>' +
             '</xsd:updateApplication>';
-    log.info('update app in postAddOAuthInboundAuthnConfig' + updateApp);
     spAdminClient.updateApplicationData(updateApp);
 }
 %>

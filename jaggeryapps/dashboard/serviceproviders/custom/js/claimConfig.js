@@ -230,10 +230,11 @@ function drawClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
         //}
     });
 }
+
 function getClaimUrisClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapping) {
 
     $.ajax({
-        url: "/dashboard/serviceproviders/custom/controllers/custom/samlSSOConfig_handler.jag",
+        url: "/dashboard/serviceproviders/custom/controllers/custom/samlSSOConfigClient.jag",
         type: "GET",
         data: "&cookie=" + cookie + "&user=" + userName + "&clientAction=getClaimURIs",
         success: function (data) {
@@ -251,6 +252,7 @@ function getClaimUrisClaimConfig(spClaimConfig, isLocalClaimsSelected, claimMapp
     });
 
 }
+
 function resetRoleClaims() {
     $("#roleClaim option").filter(function () {
         return $(this).val().length > 0;
@@ -265,6 +267,7 @@ function resetRoleClaims() {
         }
     });
 }
+
 function changeDialectUIs(element) {
     $("#roleClaim option").filter(function () {
         return $(this).val().length > 0;
@@ -296,8 +299,9 @@ function changeDialectUIs(element) {
         $('#roleMappingSelection').show();
     }
 }
+
 function deleteClaimRow(obj) {
-    if ($('input:radio[name=claim_dialect]:checked').val() == "custom") {
+    if ($('input:radio[name=claim_dialect]:checked').val() == CUSTOM_SP) {
         if ($(obj).parent().parent().find('input.spClaimVal').val().length > 0) {
             $('#roleClaim option[value="' + $(obj).parent().parent().find('input.spClaimVal').val() + '"]').remove();
             $('#subject_claim_uri option[value="' + $(obj).parent().parent().find('input.spClaimVal').val() + '"]').remove();
@@ -309,6 +313,7 @@ function deleteClaimRow(obj) {
         $('#claimMappingAddTable').hide();
     }
 }
+
 function validateForDuplications(selector, authenticatorName, type) {
     if ($(selector).length > 0) {
         var isNew = true;
